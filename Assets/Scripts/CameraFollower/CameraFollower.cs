@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Camera
+namespace CameraFollower
 {
   public class CameraFollower : MonoBehaviour
   {
