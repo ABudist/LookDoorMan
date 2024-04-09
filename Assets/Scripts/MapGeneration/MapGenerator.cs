@@ -36,7 +36,7 @@ namespace MapGeneration
     private void CreateFloor()
     {
       Floor floor = Instantiate(_floorPrefab);
-      floor.transform.position = new Vector3(0, -1,0);
+      floor.transform.position = new Vector3(0, -0.5f,0);
       floor.transform.localScale = new Vector3(_gridColumns * CELL_SIZE, 1, _gridRows * CELL_SIZE);
       
       floor.Bake();
@@ -122,14 +122,14 @@ namespace MapGeneration
     private void SpawnWall(Vector3 position, Vector3 rotation)
     {
       Wall wall = Instantiate(_wallPrefab);
-      wall.transform.position = position;
+      wall.transform.position = position + new Vector3(0, 0.5f, 0);
       wall.transform.rotation = Quaternion.Euler(rotation);
     }
 
     private void SpawnExit(Vector3 position, Vector3 rotation)
     {
       Exit exit = Instantiate(_exitPrefab);
-      exit.transform.position = position;
+      exit.transform.position = position + new Vector3(0, 0.5f, 0);
       exit.transform.rotation = Quaternion.Euler(rotation);
     }
 
