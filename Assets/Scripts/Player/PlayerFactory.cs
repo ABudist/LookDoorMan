@@ -6,11 +6,13 @@ namespace Player
   {
     [SerializeField] private Player _prefab;
 
-    public void CreatePlayer(Vector3 at)
+    public Player CreatePlayer(Vector3 at)
     {
       Player spawned = Instantiate(_prefab);
 
       spawned.transform.position = at;
+
+      return spawned;
     }
   }
 }
