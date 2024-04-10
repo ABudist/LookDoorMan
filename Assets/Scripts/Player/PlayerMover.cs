@@ -4,6 +4,8 @@ namespace Player
 {
   public class PlayerMover : MonoBehaviour
   {
+    public float NormalizedSpeed => _joystick.Direction.magnitude;
+    
     [SerializeField] private float _speed;
     
     private Joystick _joystick;
@@ -17,8 +19,11 @@ namespace Player
 
     private void Update()
     {
-      _rigidbody.position += new Vector3(_joystick.Horizontal, 0, _joystick.Vertical) * (Time.deltaTime * _speed);
-      transform.rotation = Quaternion.LookRotation(new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y));
+      if (NormalizedSpeed > 0)
+      {
+        _rigidbody.position += new Vector3(_joystick.Horizontal, 0, _joystick.Vertical) * (Time.deltaTime * _speed);
+        transform.rotation = Quaternion.LookRotation(new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y));
+      }
     }
   }
 }
