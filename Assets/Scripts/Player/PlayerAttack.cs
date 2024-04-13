@@ -7,7 +7,9 @@ namespace Player
   public class PlayerAttack : MonoBehaviour
   {
     public event Action OnAttack;
-    
+    public event Action OnAttacked;
+    public event Action OnStartAttack;
+
     [SerializeField] private float _cooldown;
 
     private float _attackTimer;
@@ -15,6 +17,16 @@ namespace Player
     public void Construct(Button attackButton)
     {
       attackButton.OnClick += TryAttack;
+    }
+
+    public void StartAttack()
+    {
+      OnStartAttack?.Invoke();
+    }
+
+    public void EndAttack()
+    {
+      OnAttacked?.Invoke();
     }
 
     private void Update()
