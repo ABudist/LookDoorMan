@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MapGeneration
@@ -10,16 +11,19 @@ namespace MapGeneration
 
     private const float CELL_SIZE = 3;
     private const float CORNER_FACTOR = 0.7f;
-    private const int MAX_WALL_LENGHT = 3;
+    private const int MAX_WALL_LENGHT = 2;
 
     private Cell[,] _cells;
     private int _gridRows;
     private int _gridColumns;
 
-    private Vector3 _playerSpawnPos;
     private Cell _exitCell;
+    private Cell _playerSpawnCell;
+
+    private Vector3[] _enemiesSpawnPos;
+    private Vector3[] _enemiesTargetPos;
     
-    public LevelData GenerateMap(int rows, int columns)
+    public LevelData GenerateMap(int rows, int columns, int enemiesCount)
     {
       _gridRows = rows;
       _gridColumns = columns;
@@ -29,8 +33,47 @@ namespace MapGeneration
       FindGamePlaces();
       SpawnWalls();
       CreateFloor();
+      FindEnemiesData(enemiesCount);
       
-      return new LevelData(_playerSpawnPos);
+      return new LevelData(_playerSpawnCell.Position, _enemiesSpawnPos, _enemiesTargetPos);
+    }
+
+    public void FindEnemiesData(int count)
+    {
+      _enemiesTargetPos = new Vector3[count];
+      _enemiesSpawnPos = new Vector3[count];
+
+      List<Cell> cellsForSpawn = new List<Cell>(_gridColumns * _gridRows);
+
+      for (int row = 1; row < _gridRows; row++)
+      {
+        cellsForSpawn.Add(_cells[row, 1]);
+        cellsForSpawn.Add(_cells[row, _gridColumns - 1]);
+      }
+
+      for (int column = 1; column < _gridColumns; column++)
+      {
+        cellsForSpawn.Add(_cells[1, column]);
+        cellsForSpawn.Add(_cells[_gridRows - 1, column]);
+      }
+      
+      cellsForSpawn.Remove(_playerSpawnCell);
+      cellsForSpawn.Remove(GetLeftCell(_playerSpawnCell));
+      cellsForSpawn.Remove(GetRightCell(_playerSpawnCell));
+      cellsForSpawn.Remove(GetUpperCell(_playerSpawnCell));
+      cellsForSpawn.Remove(GetBottomCell(_playerSpawnCell));
+
+      for (int i = 0; i < count; i++)
+      {
+        Cell spawn = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
+        Cell target = _cells[_gridRows - spawn.Row, _gridColumns - spawn.Column];
+
+        cellsForSpawn.Remove(spawn);
+        cellsForSpawn.Remove(target);
+
+        _enemiesSpawnPos[i] = spawn.Position;
+        _enemiesTargetPos[i] = target.Position;
+      }
     }
 
     private void CreateFloor()
@@ -138,23 +181,23 @@ namespace MapGeneration
       switch (Random.Range(0, 4))
       {
         case 0:
-          _playerSpawnPos = GetCellInLeftUpperCorner().Position;
+          _playerSpawnCell = GetCellInLeftUpperCorner();
           _exitCell = GetCellInRightBottomCorner();
           break;
         case 1:
-          _playerSpawnPos = GetCellInRightUpperCorner().Position;
+          _playerSpawnCell = GetCellInRightUpperCorner();
           _exitCell = GetCellInLeftBottomCorner();
           break;
         case 2:
-          _playerSpawnPos = GetCellInRightBottomCorner().Position;
+          _playerSpawnCell = GetCellInRightBottomCorner();
           _exitCell = GetCellInLeftUpperCorner();
           break;
         case 3:
-          _playerSpawnPos = GetCellInLeftBottomCorner().Position;
+          _playerSpawnCell = GetCellInLeftBottomCorner();
           _exitCell = GetCellInRightUpperCorner();
           break;
       }
-
+        
       _exitCell.Exit = true;
     }
 
@@ -389,6 +432,18 @@ namespace MapGeneration
           {
             Gizmos.DrawSphere(_cells[row, column].Position, 0.1f);
           }
+        }
+          
+        Gizmos.color = Color.red;
+        for (int i = 0; i < _enemiesSpawnPos.Length; i++)
+        {
+          Gizmos.DrawSphere(_enemiesSpawnPos[i], 0.15f);
+        }
+        
+        Gizmos.color = Color.blue;
+        for (int i = 0; i < _enemiesTargetPos.Length; i++)
+        {
+          Gizmos.DrawSphere(_enemiesTargetPos[i], 0.15f);
         }
       }
     }

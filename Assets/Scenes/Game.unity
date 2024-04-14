@@ -435,6 +435,7 @@ MonoBehaviour:
   _cameraFollower: {fileID: 539812129}
   _joystick: {fileID: 1762207962}
   _attackButton: {fileID: 1481879879}
+  _enemyFactory: {fileID: 1195280943}
 --- !u!4 &659998108
 Transform:
   m_ObjectHideFlags: 0
@@ -599,6 +600,54 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
   m_PrefabInstance: {fileID: 1151924757}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1195280942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1195280944}
+  - component: {fileID: 1195280943}
+  m_Layer: 0
+  m_Name: EnemyFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1195280943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195280942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142036d86a254244be81d5bd3c48a07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyPrefabs:
+  - {fileID: -3312450491010199713, guid: 3a165d79672ade54ba8ca1306e0c922d, type: 3}
+  - {fileID: 3698483589568341516, guid: 9bc496b40df0451409222cb584cfb585, type: 3}
+  - {fileID: -3662908185921920911, guid: 2ece27974ec07284b8fca19643797d7c, type: 3}
+--- !u!4 &1195280944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195280942}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1069.6996, y: -21.546553, z: -6.8053746}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246171860
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,3 +898,4 @@ SceneRoots:
   - {fileID: 1382430238}
   - {fileID: 30082025}
   - {fileID: 613893504}
+  - {fileID: 1195280944}
