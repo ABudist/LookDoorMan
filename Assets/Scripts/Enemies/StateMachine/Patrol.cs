@@ -34,6 +34,7 @@ namespace Enemies.StateMachine
       if (_currentTargetPos == Vector3.zero)
       {
         _currentTargetPos = _endPos;
+        _mover.transform.position = (_currentTargetPos - _mover.transform.position) * Random.Range(0.3f, 0.7f);
       }
       
       while (true)
@@ -42,7 +43,7 @@ namespace Enemies.StateMachine
         
         if (distToTarget > 0.1f && _mover.Target != _currentTargetPos)
         {
-          _mover.MoveTo(_currentTargetPos);
+          _mover.WalkTo(_currentTargetPos);
         }
         else if(distToTarget < 0.1f &&  _mover.Target == _currentTargetPos)
         {

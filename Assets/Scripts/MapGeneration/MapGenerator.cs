@@ -38,22 +38,22 @@ namespace MapGeneration
       return new LevelData(_playerSpawnCell.Position, _enemiesSpawnPos, _enemiesTargetPos);
     }
 
-    public void FindEnemiesData(int count)
+    private void FindEnemiesData(int count)
     {
       _enemiesTargetPos = new Vector3[count];
       _enemiesSpawnPos = new Vector3[count];
 
       List<Cell> cellsForSpawn = new List<Cell>(_gridColumns * _gridRows);
 
-      for (int row = 1; row < _gridRows; row++)
+      for (int row = 0; row < _gridRows; row++)
       {
-        cellsForSpawn.Add(_cells[row, 1]);
+        cellsForSpawn.Add(_cells[row, 0]);
         cellsForSpawn.Add(_cells[row, _gridColumns - 1]);
       }
 
-      for (int column = 1; column < _gridColumns; column++)
+      for (int column = 0; column < _gridColumns; column++)
       {
-        cellsForSpawn.Add(_cells[1, column]);
+        cellsForSpawn.Add(_cells[0, column]);
         cellsForSpawn.Add(_cells[_gridRows - 1, column]);
       }
       
@@ -66,11 +66,11 @@ namespace MapGeneration
       for (int i = 0; i < count; i++)
       {
         Cell spawn = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
-        Cell target = _cells[_gridRows - spawn.Row, _gridColumns - spawn.Column];
+        Cell target = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
 
         cellsForSpawn.Remove(spawn);
         cellsForSpawn.Remove(target);
-
+        
         _enemiesSpawnPos[i] = spawn.Position;
         _enemiesTargetPos[i] = target.Position;
       }

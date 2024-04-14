@@ -1420,6 +1420,7 @@ GameObject:
   - component: {fileID: -3312450491010199713}
   - component: {fileID: -7501319075999089786}
   - component: {fileID: 5643575619943415209}
+  - component: {fileID: -8103278282532562370}
   m_Layer: 0
   m_Name: Male Ninja 01
   m_TagString: Untagged
@@ -1564,6 +1565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23760e5cb8014622b62849e9fbc56daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunSpeed: 1.4
+  WalkSpeed: 0.6
 --- !u!114 &5643575619943415209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,6 +1579,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2dbe1ee6f24022988128cffab71c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8103278282532562370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423443208040621164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081f5ce4317743838b98f2ade733051d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: -7501319075999089786}
+  _animator: {fileID: 8658026411023210807}
 --- !u!1 &8526430077562066656
 GameObject:
   m_ObjectHideFlags: 0

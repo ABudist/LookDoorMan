@@ -15,6 +15,8 @@ public class GameState : MonoBehaviour
 
   public void Start()
   {
+    Application.targetFrameRate = 50;
+    
     LevelData data = _mapGenerator.GenerateMap(6, 8, 6);
     Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition);
     player.GetComponent<PlayerMover>().Construct(_joystick);
