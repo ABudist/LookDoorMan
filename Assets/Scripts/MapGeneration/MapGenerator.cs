@@ -10,7 +10,7 @@ namespace MapGeneration
     [SerializeField] private Exit _exitPrefab;
 
     private const float CELL_SIZE = 3;
-    private const float CORNER_FACTOR = 0.7f;
+    private const float CORNER_FACTOR = 0.6f;
     private const int MAX_WALL_LENGHT = 2;
 
     private Cell[,] _cells;
@@ -30,6 +30,7 @@ namespace MapGeneration
       
       GenerateCells(rows, columns);
       CreateLabyrinth();
+      DeleteCycles();
       FindGamePlaces();
       SpawnWalls();
       CreateFloor();
@@ -66,10 +67,16 @@ namespace MapGeneration
       for (int i = 0; i < count; i++)
       {
         Cell spawn = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
-        Cell target = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
-
         cellsForSpawn.Remove(spawn);
+        
+        Cell target = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
         cellsForSpawn.Remove(target);
+
+        if (spawn == target)
+        {
+          target = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
+          cellsForSpawn.Remove(target);
+        }
         
         _enemiesSpawnPos[i] = spawn.Position;
         _enemiesTargetPos[i] = target.Position;
@@ -305,6 +312,45 @@ namespace MapGeneration
         }
       }
     }
+
+    private void DeleteCycles()
+    {
+      for (int column = 0; column < _gridColumns; column++)
+      {
+        if (CheckCycle(_cells[0, column]))
+        {
+          DeleteBottomWall(_cells[0, column]);
+        }
+
+        if (CheckCycle(_cells[_gridRows - 1, column]))
+        {
+          DeleteUpperWall(_cells[_gridRows - 1, column]);
+        }
+      }
+
+      for (int row = 0; row < _gridRows; row++)
+      {
+        if (CheckCycle(_cells[row, 0]))
+        {
+          DeleteRightWall(_cells[row, 0]);
+        }
+        
+        if (CheckCycle(_cells[row, _gridColumns - 1]))
+        {
+          DeleteRightWall(_cells[row, _gridColumns - 1]);
+        }
+      }
+    }
+
+    private bool CheckCycle(Cell cell)
+    {
+      if (cell.LeftWall && cell.RightWall && cell.BottomWall && cell.UpWall)
+      {
+        return true;
+      }
+
+      return false;
+    }
     
     private void DeleteRightWall(Cell cell)
     {
@@ -393,7 +439,7 @@ namespace MapGeneration
     private Cell GetCellInRightUpperCorner()
     {
       if (Random.Range(0, 2) == 0)
-        return _cells[0, Random.Range((int)(_gridColumns * CORNER_FACTOR), _gridColumns - 1)];
+        return _cells[0, Random.Range((int)(_gridColumns * CORNER_FACTOR), _gridColumns - 2)];
       else
         return _cells[Random.Range(1, (int)(_gridRows * (1 - CORNER_FACTOR))), _gridColumns - 1];
     }
@@ -409,7 +455,7 @@ namespace MapGeneration
     private Cell GetCellInLeftBottomCorner()
     {
       if (Random.Range(0, 2) == 0)
-        return _cells[Random.Range((int)(_gridRows * CORNER_FACTOR), _gridRows - 1), 0];
+        return _cells[Random.Range((int)(_gridRows * CORNER_FACTOR), _gridRows - 2), 0];
       else
         return _cells[_gridRows - 1, Random.Range(1, (int)(_gridRows * (1 - CORNER_FACTOR)))];
     }

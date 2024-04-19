@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 3391511549246255647}
   - component: {fileID: 7777855449161275850}
   - component: {fileID: 2817577957691854659}
+  - component: {fileID: 2841780912826481210}
   m_Layer: 8
   m_Name: Male Ninja 02
   m_TagString: Untagged
@@ -261,10 +262,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 0.8
-  m_Acceleration: 8
+  m_Acceleration: 500
   avoidancePriority: 50
   m_AngularSpeed: 500
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -297,7 +298,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3698483589568341516
 MonoBehaviour:
@@ -311,6 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bea7b9ef88f42a5aff85e94b6aa0ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyStateMachine: {fileID: 3391511549246255647}
+  _enemyVisionArea: {fileID: 2817577957691854659}
 --- !u!114 &7688721461026765670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2dbe1ee6f24022988128cffab71c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyVisionArea: {fileID: 2817577957691854659}
 --- !u!114 &7777855449161275850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,8 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081f5ce4317743838b98f2ade733051d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mover: {fileID: 7688721461026765670}
-  _animator: {fileID: 534859104800168836}
 --- !u!114 &2817577957691854659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +367,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visionArea: {fileID: 8088723892279973548}
   _playerDetectColor: {r: 1, g: 0, b: 0, a: 0.54901963}
+--- !u!114 &2841780912826481210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841428023393806031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a85fe67dcd44b29bfadcd2f84c2081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 0.7
 --- !u!1 &1050226559912738756
 GameObject:
   m_ObjectHideFlags: 0

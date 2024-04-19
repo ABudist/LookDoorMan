@@ -3,16 +3,22 @@ using UnityEngine;
 
 namespace Enemies.StateMachine
 {
-  public class Patrol : IState
+  public class PatrolState : IState
   {
     private EnemyMover _mover;
     private Vector3 _startPos;
     private Vector3 _endPos;
     private Vector3 _currentTargetPos;
     private EnemyStateMachine _enemyStateMachine;
+    private EnemyVisionArea _enemyVisionArea;
+    private FollowToPlayerState _followToPlayerState;
 
-    public Patrol(EnemyStateMachine enemyStateMachine, EnemyMover mover, Vector3 startPos, Vector3 endPos)
+    private Coroutine _coroutine;
+
+    public void Construct(EnemyStateMachine enemyStateMachine, FollowToPlayerState followToPlayerState, EnemyMover mover, EnemyVisionArea enemyVisionArea, Vector3 startPos, Vector3 endPos)
     {
+      _followToPlayerState = followToPlayerState;
+      _enemyVisionArea = enemyVisionArea;
       _enemyStateMachine = enemyStateMachine;
       _mover = mover;
       _startPos = startPos;
@@ -21,12 +27,15 @@ namespace Enemies.StateMachine
     
     public void Enter()
     {
-      _enemyStateMachine.StartCoroutine(PatrolCoroutine());
+      _enemyVisionArea.OnPlayerEnter += PlayerEnter;
+      _coroutine = _enemyStateMachine.StartCoroutine(PatrolCoroutine());
     }
 
     public void Exit()
     {
-      _enemyStateMachine.StopCoroutine(PatrolCoroutine());
+      _enemyVisionArea.Hide();
+      _enemyVisionArea.OnPlayerEnter -= PlayerEnter;
+      _enemyStateMachine.StopCoroutine(_coroutine);
     }
 
     private IEnumerator PatrolCoroutine()
@@ -34,18 +43,17 @@ namespace Enemies.StateMachine
       if (_currentTargetPos == Vector3.zero)
       {
         _currentTargetPos = _endPos;
-        _mover.transform.position = (_currentTargetPos - _mover.transform.position) * Random.Range(0.3f, 0.7f);
       }
       
       while (true)
       {
         float distToTarget = Vector3.Distance(_mover.transform.position, _currentTargetPos);
         
-        if (distToTarget > 0.1f && _mover.Target != _currentTargetPos)
+        if (distToTarget > 0.5f && _mover.Target != _currentTargetPos)
         {
           _mover.WalkTo(_currentTargetPos);
         }
-        else if(distToTarget < 0.1f &&  _mover.Target == _currentTargetPos)
+        else if(distToTarget < 0.5f &&  _mover.Target == _currentTargetPos)
         {
           yield return new WaitForSeconds(Random.Range(1, 4));
           
@@ -57,6 +65,11 @@ namespace Enemies.StateMachine
         
         yield return null;
       }
+    }
+
+    private void PlayerEnter(Player.Player obj)
+    {
+      _enemyStateMachine.ChangeState(_followToPlayerState);
     }
   }
 }

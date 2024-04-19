@@ -7,15 +7,31 @@ namespace Enemies.StateMachine
   {
     public IState CurrentState { get; private set; }
 
+    [SerializeField] private EnemyVisionArea _enemyVisionArea;
+    
     private EnemyMover _mover => GetComponent<EnemyMover>();
-    private Enemy _enemy => GetComponent<Enemy>();
+    private Enemy _enemy => GetComponent<Enemy>();         
 
-    private Patrol _patrolState;
+    private PatrolState _patrolStateState;
+    private FollowToPlayerState _followToPlayerStateState;
+    private Player.Player _player;
+    private AttackState _attackState;
+
+    public void Construct(Player.Player player)
+    {
+      _player = player;
+    }
     
     public void Start()
     {
-      _patrolState = new Patrol(this, _mover, transform.position, _enemy.TargetPatrolPosition);
-      ChangeState(_patrolState);
+      _followToPlayerStateState = new FollowToPlayerState();
+      _patrolStateState = new PatrolState();
+      _attackState = new AttackState();
+      
+      _followToPlayerStateState.Construct(this, _attackState, _mover, _player);
+      _patrolStateState.Construct(this, _followToPlayerStateState, _mover, _enemyVisionArea, transform.position, _enemy.TargetPatrolPosition);
+      _attackState.Construct(this, _mover, GetComponent<EnemyAttack>(), _player);
+      ChangeState(_patrolStateState);
     }
 
     public void ChangeState(IState next)
@@ -24,8 +40,9 @@ namespace Enemies.StateMachine
       {
         CurrentState.Exit();
       }
-      
+
       next.Enter();
+      CurrentState = next;
     }
   }
 }

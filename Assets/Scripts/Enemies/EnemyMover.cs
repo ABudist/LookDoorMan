@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,7 +21,7 @@ namespace Enemies
       
       Target = target;
       _agent.destination = target;
-      _agent.transform.rotation = Quaternion.LookRotation((target - transform.position).normalized);
+      LookTo((target - transform.position).normalized);
     }
     
     public void RunTo(Vector3 target)
@@ -29,7 +30,17 @@ namespace Enemies
       
       Target = target;
       _agent.destination = target;
-      _agent.transform.rotation = Quaternion.LookRotation((target - transform.position).normalized);
+    }
+
+    public void LookTo(Vector3 dir)
+    {
+      _agent.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+      _agent.transform.rotation = Quaternion.Euler(0, _agent.transform.rotation.eulerAngles.y, 0);
+    }
+    
+    public void Stop()
+    {
+      _agent.ResetPath();
     }
   }
 }

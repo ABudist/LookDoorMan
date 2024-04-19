@@ -17,13 +17,13 @@ public class GameState : MonoBehaviour
   {
     Application.targetFrameRate = 50;
     
-    LevelData data = _mapGenerator.GenerateMap(6, 8, 6);
+    LevelData data = _mapGenerator.GenerateMap(3, 3, 1);
     Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition);
     player.GetComponent<PlayerMover>().Construct(_joystick);
     player.GetComponent<PlayerAttack>().Construct(_attackButton);
     _cameraFollower.SetTarget(player.transform);
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 1; i++)
     {
       if (data.EnemiesSpawnPosition[i] == Vector3.zero)
       {
@@ -31,7 +31,7 @@ public class GameState : MonoBehaviour
       } 
       
       Enemy enemy =  _enemyFactory.Spawn(data.EnemiesSpawnPosition[i]);
-      enemy.Construct(data.EnemiesTargetPosition[i]);
+      enemy.Construct(data.EnemiesTargetPosition[i], player);
     }
     
   }

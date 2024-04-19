@@ -19,7 +19,7 @@ namespace Player
 
     private void Update()
     {
-      if (NormalizedSpeed > 0)
+      if (NormalizedSpeed > 0 && _joystick.Direction.magnitude > Mathf.Epsilon)
       {
         _rigidbody.position += new Vector3(_joystick.Horizontal, 0, _joystick.Vertical) * (Time.deltaTime * _speed);
         transform.rotation = Quaternion.LookRotation(new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y));
