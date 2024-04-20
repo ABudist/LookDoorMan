@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Utils;
 
 namespace Enemies.StateMachine
 {
@@ -49,11 +50,11 @@ namespace Enemies.StateMachine
       {
         float distToTarget = Vector3.Distance(_mover.transform.position, _currentTargetPos);
         
-        if (distToTarget > 0.5f && _mover.Target != _currentTargetPos)
+        if (distToTarget > Constants.DistToInteract && _mover.Target != _currentTargetPos)
         {
           _mover.WalkTo(_currentTargetPos);
         }
-        else if(distToTarget < 0.5f &&  _mover.Target == _currentTargetPos)
+        else if(distToTarget < Constants.DistToInteract &&  _mover.Target == _currentTargetPos)
         {
           yield return new WaitForSeconds(Random.Range(1, 4));
           

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Utils;
 
 namespace Enemies.StateMachine
 {
@@ -41,7 +42,7 @@ namespace Enemies.StateMachine
           continue;
         }
           
-        if (Vector3.Distance(_enemyMover.transform.position, _player.transform.position) > 0.7f)
+        if (Vector3.Distance(_enemyMover.transform.position, _player.transform.position) > Constants.DistToInteract)
         {
           _enemyMover.RunTo(_player.transform.position);
         }
