@@ -1,5 +1,4 @@
 using System;
-using Player;
 using UnityEngine;
 using Utils;
 
@@ -17,9 +16,9 @@ namespace Enemies
     private float _timer;
 
     private bool _ready = true;
-    private PlayerHealth _playerHealth;
+    private Health.Health _playerHealth;
 
-    public void Construct(PlayerHealth playerHealth)
+    public void Construct(Health.Health playerHealth)
     {
       _playerHealth = playerHealth;
     }

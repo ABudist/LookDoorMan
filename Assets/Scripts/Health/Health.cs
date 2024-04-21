@@ -20,6 +20,9 @@ namespace Health
 
     public void TakeDamage(float damage)
     {
+      if(Value <= 0)
+        return;
+      
       Value -= damage;
 
       OnChanged?.Invoke();

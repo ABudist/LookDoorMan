@@ -34,6 +34,11 @@ namespace Health
         .Append(transform.DOScale(_origScale, _animationDuration / 2));
       
       _filled.fillAmount = _health.NormalizedValue;
+
+      if (_health.NormalizedValue <= 0)
+      {
+        gameObject.SetActive(false);
+      }
     }
   }
 }

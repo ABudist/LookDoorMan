@@ -12,9 +12,12 @@ namespace Enemies.StateMachine
     private EnemyAttack _enemyAttack;
 
     private Coroutine _coroutine;
+    private DeadState _deadState;
 
-    public void Construct(EnemyStateMachine enemyStateMachine, EnemyMover enemyMover, EnemyAttack enemyAttack, Player.Player player)
+    public void Construct(EnemyStateMachine enemyStateMachine, EnemyMover enemyMover, EnemyAttack enemyAttack, Player.Player player, DeadState deadState, Health.Health enemyHealth)
     {
+      _deadState = deadState;
+      enemyHealth.OnEnd += Dead;
       _enemyAttack = enemyAttack;
       _player = player;
       _enemyMover = enemyMover;
@@ -41,7 +44,7 @@ namespace Enemies.StateMachine
           yield return null;
           continue;
         }
-          
+
         if (Vector3.Distance(_enemyMover.transform.position, _player.transform.position) > Constants.DistToInteract)
         {
           _enemyMover.RunTo(_player.transform.position);
@@ -58,6 +61,11 @@ namespace Enemies.StateMachine
 
         yield return null;
       }
+    }
+
+    private void Dead()
+    {
+      _enemyStateMachine.ChangeState(_deadState);
     }
   }
 }

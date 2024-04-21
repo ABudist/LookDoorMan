@@ -1,5 +1,4 @@
 using Enemies.StateMachine;
-using Player;
 using UnityEngine;
 
 namespace Enemies
@@ -10,12 +9,19 @@ namespace Enemies
     [SerializeField] private EnemyStateMachine _enemyStateMachine;
     [SerializeField] private EnemyVisionArea _enemyVisionArea;
     private EnemyAttack _enemyAttack => GetComponent<EnemyAttack>();
+    private Health.Health _health => GetComponent<Health.Health>();
     
     public void Construct(Vector3 targetPatrolPosition, Player.Player player)
     {
       TargetPatrolPosition = targetPatrolPosition;
       _enemyStateMachine.Construct(player);
-      _enemyAttack.Construct(player.GetComponent<PlayerHealth>());
+      _enemyAttack.Construct(player.GetComponent<Health.Health>());
+      _health.Construct(100);
+    }
+
+    public void SetInactive()
+    {
+      GetComponent<CapsuleCollider>().enabled = false;
     }
   }
 }

@@ -16,6 +16,7 @@ namespace Enemies.StateMachine
     private FollowToPlayerState _followToPlayerStateState;
     private Player.Player _player;
     private AttackState _attackState;
+    private DeadState _deadState;
 
     public void Construct(Player.Player player)
     {
@@ -27,10 +28,12 @@ namespace Enemies.StateMachine
       _followToPlayerStateState = new FollowToPlayerState();
       _patrolStateState = new PatrolState();
       _attackState = new AttackState();
+      _deadState = new DeadState();
       
+      _deadState.Construct(_enemy);
       _followToPlayerStateState.Construct(this, _attackState, _mover, _player);
       _patrolStateState.Construct(this, _followToPlayerStateState, _mover, _enemyVisionArea, transform.position, _enemy.TargetPatrolPosition);
-      _attackState.Construct(this, _mover, GetComponent<EnemyAttack>(), _player);
+      _attackState.Construct(this, _mover, GetComponent<EnemyAttack>(), _player, _deadState, GetComponent<Health.Health>());
       ChangeState(_patrolStateState);
     }
 
