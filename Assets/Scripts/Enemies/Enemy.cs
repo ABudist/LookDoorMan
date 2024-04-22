@@ -12,12 +12,12 @@ namespace Enemies
     private EnemyAttack _enemyAttack => GetComponent<EnemyAttack>();
     private Health.Health _health => GetComponent<Health.Health>();
     
-    public void Construct(Vector3 targetPatrolPosition, Player.Player player)
+    public void Construct(Vector3 targetPatrolPosition, Player.Player player, float damage, float health)
     {
       TargetPatrolPosition = targetPatrolPosition;
       _enemyStateMachine.Construct(player);
-      _enemyAttack.Construct(player.GetComponent<Health.Health>());
-      _health.Construct(100);
+      _enemyAttack.Construct(player.GetComponent<Health.Health>(), damage);
+      _health.Construct(health);
     }
 
     public void SetInactive()

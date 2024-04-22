@@ -7,7 +7,7 @@ namespace Player
   {
     [SerializeField] private Player _prefab;
 
-    public Player CreatePlayer(Vector3 at, Joystick joystick, Button attackButton)
+    public Player CreatePlayer(Vector3 at, Joystick joystick, Button attackButton, float health, float damage)
     {
       Player spawned = Instantiate(_prefab);
       spawned.transform.position = at;
@@ -17,8 +17,8 @@ namespace Player
       Health.Health playerHealth = spawned.GetComponent<Health.Health>();
 
       playerMover.Construct(joystick);
-      playerAttack.Construct(attackButton);
-      playerHealth.Construct(100);
+      playerAttack.Construct(attackButton, damage);
+      playerHealth.Construct(health);
       spawned.Construct(playerHealth, playerMover, playerAttack);
 
       return spawned;

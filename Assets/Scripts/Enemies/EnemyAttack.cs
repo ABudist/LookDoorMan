@@ -11,16 +11,17 @@ namespace Enemies
     public event Action OnStartAttack;
     public event Action OnEndAttack;
 
-    [SerializeField] private float _damage;
     [SerializeField] private float _cooldown;
+    private float _damage;
     private float _timer;
 
     private bool _ready = true;
     private Health.Health _playerHealth;
 
-    public void Construct(Health.Health playerHealth)
+    public void Construct(Health.Health playerHealth, float damage)
     {
       _playerHealth = playerHealth;
+      _damage = damage;
     }
     
     private void Update()

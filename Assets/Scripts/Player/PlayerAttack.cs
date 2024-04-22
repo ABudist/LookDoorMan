@@ -14,16 +14,17 @@ namespace Player
     public event Action OnStartAttack;
 
     [SerializeField] private float _cooldown;
-    [SerializeField] private float _damage;
+    private float _damage;
 
     private List<Enemy> _enemies = new List<Enemy>(5);
     
     private float _attackTimer;
     private bool _active = true;
 
-    public void Construct(Button attackButton)
+    public void Construct(Button attackButton, float damage)
     {
       attackButton.OnClick += TryAttack;
+      _damage = damage;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,8 +68,8 @@ namespace Player
       
       foreach (Enemy enemy in _enemies)
       {
-        if (Vector3.Distance(transform.position, enemy.transform.position) < Constants.DistToInteract &&
-            Vector3.Angle((enemy.transform.position - transform.position).normalized, transform.forward) < 30)
+        if (Vector3.Distance(transform.position, enemy.transform.position) < Constants.DistToEnemyForDamage &&
+            Vector3.Angle((enemy.transform.position - transform.position).normalized, transform.forward) < 50)
         {
           enemy.GetComponent<Health.Health>().TakeDamage(_damage);
         }  

@@ -7,7 +7,7 @@ namespace Enemies
   {
     [SerializeField] private Enemy[] _enemyPrefabs;
 
-    public void SpawnEnemies(LevelData levelData, int count, Player.Player player)
+    public void SpawnEnemies(LevelData levelData, int count, Player.Player player, float enemyDamage, float enemyHealth)
     {
       for (int i = 0; i < count; i++)
       {
@@ -17,7 +17,7 @@ namespace Enemies
         } 
       
         Enemy enemy = Spawn(levelData.EnemiesSpawnPosition[i]);
-        enemy.Construct(levelData.EnemiesTargetPosition[i], player);
+        enemy.Construct(levelData.EnemiesTargetPosition[i], player, enemyDamage, enemyHealth);
       }
     }
     

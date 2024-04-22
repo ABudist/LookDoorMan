@@ -18,16 +18,23 @@ public class GameState : MonoBehaviour
   public void Start()
   {
     Application.targetFrameRate = 50;
+
+    int enemiesCount = 6;
+    int hitsToPlayerDeathFromOneEnemy = 5;
+    float enemyDamage = 30;
+    float enemyHealth = 100;
+    float playerHealth = enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount;
+    float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 2);
     
-    LevelData data = _mapGenerator.GenerateMap(3, 8, 6);
-    
-    Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton);
+    LevelData data = _mapGenerator.GenerateMap(3, 8, enemiesCount);
+      
+    Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
 
     player.OnDead += PlayerDead;
     
     _cameraFollower.SetTarget(player.transform);
     
-    _enemyFactory.SpawnEnemies(data, 6, player);
+    _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
   }
 
   private void PlayerDead()
