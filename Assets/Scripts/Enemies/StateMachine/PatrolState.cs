@@ -11,19 +11,24 @@ namespace Enemies.StateMachine
     private Vector3 _endPos;
     private Vector3 _currentTargetPos;
     private EnemyStateMachine _enemyStateMachine;
+    private Health.Health _health;
     private EnemyVisionArea _enemyVisionArea;
     private FollowToPlayerState _followToPlayerState;
 
     private Coroutine _coroutine;
 
-    public void Construct(EnemyStateMachine enemyStateMachine, FollowToPlayerState followToPlayerState, EnemyMover mover, EnemyVisionArea enemyVisionArea, Vector3 startPos, Vector3 endPos)
+    public void Construct(EnemyStateMachine enemyStateMachine, FollowToPlayerState followToPlayerState, EnemyMover mover, EnemyVisionArea enemyVisionArea, 
+      Vector3 startPos, Vector3 endPos, Health.Health health)
     {
+      _health = health;
       _followToPlayerState = followToPlayerState;
       _enemyVisionArea = enemyVisionArea;
       _enemyStateMachine = enemyStateMachine;
       _mover = mover;
       _startPos = startPos;
       _endPos = endPos;
+
+      health.OnChanged += Attacked;
     }
     
     public void Enter()
@@ -36,6 +41,8 @@ namespace Enemies.StateMachine
     {
       _enemyVisionArea.Hide();
       _enemyVisionArea.OnPlayerEnter -= PlayerEnter;
+      _health.OnChanged -= Attacked;
+      
       _enemyStateMachine.StopCoroutine(_coroutine);
     }
 
@@ -69,6 +76,11 @@ namespace Enemies.StateMachine
     }
 
     private void PlayerEnter(Player.Player obj)
+    {
+      _enemyStateMachine.ChangeState(_followToPlayerState);
+    }
+
+    private void Attacked()
     {
       _enemyStateMachine.ChangeState(_followToPlayerState);
     }

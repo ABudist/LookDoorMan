@@ -11,9 +11,9 @@ namespace Utils
       _camera = Camera.main.transform;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-      transform.LookAt(_camera);
+      transform.LookAt(transform.position + _camera.forward);
     }
   }
 }
