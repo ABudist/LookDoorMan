@@ -19,6 +19,7 @@ namespace Player
     private List<Enemy> _enemies = new List<Enemy>(5);
     
     private float _attackTimer;
+    private bool _active = true;
 
     public void Construct(Button attackButton)
     {
@@ -81,8 +82,16 @@ namespace Player
       _attackTimer -= Time.deltaTime;
     }
 
+    public void SetInactive()
+    {
+      _active = false;
+    }
+
     private void TryAttack()
     {
+      if(!_active)
+        return;
+      
       if (_attackTimer <= 0)
       {
         _attackTimer = _cooldown;

@@ -12,10 +12,15 @@ namespace Player
       Player spawned = Instantiate(_prefab);
       spawned.transform.position = at;
 
-      spawned.GetComponent<PlayerMover>().Construct(joystick);
-      spawned.GetComponent<PlayerAttack>().Construct(attackButton);
-      spawned.GetComponent<Health.Health>().Construct(100);
-      
+      PlayerMover playerMover = spawned.GetComponent<PlayerMover>();
+      PlayerAttack playerAttack = spawned.GetComponent<PlayerAttack>();
+      Health.Health playerHealth = spawned.GetComponent<Health.Health>();
+
+      playerMover.Construct(joystick);
+      playerAttack.Construct(attackButton);
+      playerHealth.Construct(100);
+      spawned.Construct(playerHealth, playerMover, playerAttack);
+
       return spawned;
     }
   }

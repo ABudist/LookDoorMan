@@ -10,7 +10,8 @@ namespace Player
     
     private Joystick _joystick;
     private Rigidbody _rigidbody;
-    
+    private bool _active = true;
+
     public void Construct(Joystick joystick)
     {
       _joystick = joystick;
@@ -19,11 +20,19 @@ namespace Player
 
     private void Update()
     {
+      if(!_active)
+        return;
+      
       if (NormalizedSpeed > 0 && _joystick.Direction.magnitude > Mathf.Epsilon)
       {
         _rigidbody.position += new Vector3(_joystick.Horizontal, 0, _joystick.Vertical) * (Time.deltaTime * _speed);
         transform.rotation = Quaternion.LookRotation(new Vector3(_joystick.Direction.x, 0, _joystick.Direction.y));
       }
+    }
+
+    public void SetInactive()
+    {
+      _active = false;
     }
   }
 }

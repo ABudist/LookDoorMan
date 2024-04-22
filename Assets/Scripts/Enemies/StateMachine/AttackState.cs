@@ -14,10 +14,12 @@ namespace Enemies.StateMachine
     private Coroutine _coroutine;
     private DeadState _deadState;
 
-    public void Construct(EnemyStateMachine enemyStateMachine, EnemyMover enemyMover, EnemyAttack enemyAttack, Player.Player player, DeadState deadState, Health.Health enemyHealth)
+    public void Construct(EnemyStateMachine enemyStateMachine, EnemyMover enemyMover, EnemyAttack enemyAttack, Player.Player player, 
+      DeadState deadState, Health.Health enemyHealth)
     {
       _deadState = deadState;
       enemyHealth.OnEnd += Dead;
+      player.GetComponent<Health.Health>().OnEnd += Dead;
       _enemyAttack = enemyAttack;
       _player = player;
       _enemyMover = enemyMover;

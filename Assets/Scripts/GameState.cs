@@ -1,8 +1,10 @@
+using System.Collections;
 using Enemies;
 using MapGeneration;
 using Player;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
@@ -21,10 +23,21 @@ public class GameState : MonoBehaviour
     
     Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton);
 
+    player.OnDead += PlayerDead;
+    
     _cameraFollower.SetTarget(player.transform);
     
     _enemyFactory.SpawnEnemies(data, 1, player);
-    
-   
+  }
+
+  private void PlayerDead()
+  {
+    StartCoroutine(DelayAndRestart());
+  }
+
+  private IEnumerator DelayAndRestart()
+  {
+    yield return new WaitForSeconds(3);
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }
 }
