@@ -14,12 +14,15 @@ namespace Enemies.StateMachine
     private Health.Health _health;
     private EnemyVisionArea _enemyVisionArea;
     private FollowToPlayerState _followToPlayerState;
+    private Player.Player _player;
 
     private Coroutine _coroutine;
+    private Coroutine _coroutine2;
 
     public void Construct(EnemyStateMachine enemyStateMachine, FollowToPlayerState followToPlayerState, EnemyMover mover, EnemyVisionArea enemyVisionArea, 
-      Vector3 startPos, Vector3 endPos, Health.Health health)
+      Vector3 startPos, Vector3 endPos, Health.Health health, Player.Player player)
     {
+      _player = player;
       _health = health;
       _followToPlayerState = followToPlayerState;
       _enemyVisionArea = enemyVisionArea;
@@ -35,6 +38,7 @@ namespace Enemies.StateMachine
     {
       _enemyVisionArea.OnPlayerEnter += PlayerEnter;
       _coroutine = _enemyStateMachine.StartCoroutine(PatrolCoroutine());
+      _coroutine2 = _enemyStateMachine.StartCoroutine(CheckPlayerDistance());
     }
 
     public void Exit()
@@ -44,6 +48,7 @@ namespace Enemies.StateMachine
       _health.OnChanged -= Attacked;
       
       _enemyStateMachine.StopCoroutine(_coroutine);
+      _enemyStateMachine.StopCoroutine(_coroutine2);
     }
 
     private IEnumerator PatrolCoroutine()
@@ -69,6 +74,19 @@ namespace Enemies.StateMachine
             _currentTargetPos = _startPos;
           else
             _currentTargetPos = _endPos;
+        }
+        
+        yield return null;
+      }
+    }
+
+    private IEnumerator CheckPlayerDistance()
+    {
+      while (true)
+      {
+        if (Vector3.Distance(_mover.transform.position, _player.transform.position) < Constants.DistToInteract)
+        {
+          _enemyStateMachine.ChangeState(_followToPlayerState);
         }
         
         yield return null;

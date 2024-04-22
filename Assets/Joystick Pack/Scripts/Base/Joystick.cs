@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -55,6 +56,13 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         handle.anchorMax = center;
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
+    }
+
+    private void Update()
+    {
+        #if UNITY_EDITOR
+        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+#endif
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)

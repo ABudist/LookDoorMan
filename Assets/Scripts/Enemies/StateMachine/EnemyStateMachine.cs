@@ -32,7 +32,8 @@ namespace Enemies.StateMachine
       
       _deadState.Construct(_enemy);
       _followToPlayerStateState.Construct(this, _attackState, _mover, _player);
-      _patrolStateState.Construct(this, _followToPlayerStateState, _mover, _enemyVisionArea, transform.position, _enemy.TargetPatrolPosition, GetComponent<Health.Health>());
+      _patrolStateState.Construct(this, _followToPlayerStateState, _mover, _enemyVisionArea, transform.position,
+        _enemy.TargetPatrolPosition, GetComponent<Health.Health>(), _player);
       _attackState.Construct(this, _mover, GetComponent<EnemyAttack>(), _player, _deadState, GetComponent<Health.Health>());
       ChangeState(_patrolStateState);
     }

@@ -8,6 +8,7 @@ namespace Enemies
     public Vector3 TargetPatrolPosition { get; private set; }
     [SerializeField] private EnemyStateMachine _enemyStateMachine;
     [SerializeField] private EnemyVisionArea _enemyVisionArea;
+    private EnemyMover _enemyMover => GetComponent<EnemyMover>();
     private EnemyAttack _enemyAttack => GetComponent<EnemyAttack>();
     private Health.Health _health => GetComponent<Health.Health>();
     
@@ -22,6 +23,8 @@ namespace Enemies
     public void SetInactive()
     {
       GetComponent<CapsuleCollider>().enabled = false;
+      _enemyAttack.enabled = false;
+      _enemyMover.SetInactive();
     }
   }
 }

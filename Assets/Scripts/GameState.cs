@@ -19,7 +19,7 @@ public class GameState : MonoBehaviour
   {
     Application.targetFrameRate = 50;
     
-    LevelData data = _mapGenerator.GenerateMap(3, 3, 1);
+    LevelData data = _mapGenerator.GenerateMap(3, 8, 6);
     
     Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton);
 
@@ -27,7 +27,7 @@ public class GameState : MonoBehaviour
     
     _cameraFollower.SetTarget(player.transform);
     
-    _enemyFactory.SpawnEnemies(data, 1, player);
+    _enemyFactory.SpawnEnemies(data, 6, player);
   }
 
   private void PlayerDead()
