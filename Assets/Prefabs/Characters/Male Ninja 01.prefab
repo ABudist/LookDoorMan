@@ -1625,7 +1625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a85fe67dcd44b29bfadcd2f84c2081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
   _cooldown: 0.7
 --- !u!114 &3651014508587449591
 MonoBehaviour:
@@ -1810,14 +1809,6 @@ PrefabInstance:
     - target: {fileID: 1346979550670632178, guid: e491bcb4f767c4495b597b4b654cb1b8, type: 3}
       propertyPath: m_Name
       value: VisionArea
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346979550670632178, guid: e491bcb4f767c4495b597b4b654cb1b8, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346979550670632178, guid: e491bcb4f767c4495b597b4b654cb1b8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4501356156767754137, guid: e491bcb4f767c4495b597b4b654cb1b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2428,15 +2419,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4011894282362303402, guid: 5b46d948543c64f6f8a3bba9ae0e1eea, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4011894282362303402, guid: 5b46d948543c64f6f8a3bba9ae0e1eea, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4011894282362303402, guid: 5b46d948543c64f6f8a3bba9ae0e1eea, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4011894282362303402, guid: 5b46d948543c64f6f8a3bba9ae0e1eea, type: 3}
       propertyPath: m_LocalPosition.x

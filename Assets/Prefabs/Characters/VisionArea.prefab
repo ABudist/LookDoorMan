@@ -120,3 +120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _visionAngle: 30
   _renderer: {fileID: 8253884517677717788}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 640

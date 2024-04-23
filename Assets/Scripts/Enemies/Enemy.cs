@@ -1,3 +1,5 @@
+using System.Collections;
+using DG.Tweening;
 using Enemies.StateMachine;
 using UnityEngine;
 
@@ -25,6 +27,10 @@ namespace Enemies
       GetComponent<CapsuleCollider>().enabled = false;
       _enemyAttack.enabled = false;
       _enemyMover.SetInactive();
+
+      DOTween.Sequence()
+        .AppendInterval(4)
+        .Append(transform.DOMoveY(-1, 2f));
     }
   }
 }

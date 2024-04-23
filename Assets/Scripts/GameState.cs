@@ -20,11 +20,11 @@ public class GameState : MonoBehaviour
     Application.targetFrameRate = 50;
 
     int enemiesCount = 6;
-    int hitsToPlayerDeathFromOneEnemy = 5;
+    int hitsToPlayerDeathFromOneEnemy = 3;
     float enemyDamage = 30;
     float enemyHealth = 100;
     float playerHealth = enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount;
-    float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 2);
+    float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 1);
     
     LevelData data = _mapGenerator.GenerateMap(3, 8, enemiesCount);
       

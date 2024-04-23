@@ -56,6 +56,7 @@ namespace Enemies
     public void SetInactive()
     {
       Stop();
+      _agent.enabled = false;
       _active = false;
     }
   }

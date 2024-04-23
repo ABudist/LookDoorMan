@@ -11,6 +11,7 @@ namespace Enemies.VisionArea
     
     [SerializeField] private float _visionAngle;
     [SerializeField] private MeshRenderer _renderer;
+    [SerializeField] private LayerMask _layerMask;
 
     private List<Transform> _objInTrigger = new List<Transform>();
     private List<Transform> _objInVision = new List<Transform>();
@@ -37,9 +38,7 @@ namespace Enemies.VisionArea
           
         if (angle < _visionAngle)
         {
-          int layerMask = 1 << 8;
-            
-          if (Physics.Raycast(new Ray(transform.position+ new Vector3(0, 0.5f, 0), dirToTarget), out var hit, layerMask))
+          if (Physics.Raycast(new Ray(transform.position + new Vector3(0, 0.5f, 0), dirToTarget), out var hit, _layerMask))
           {
             if (hit.transform == obj)
             {
