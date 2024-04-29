@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using Enemies;
 using MapGeneration;
 using Player;
+using Props;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +16,7 @@ public class GameState : MonoBehaviour
   [SerializeField] private Joystick _joystick;
   [SerializeField] private Button _attackButton;
   [SerializeField] private EnemyFactory _enemyFactory;
+  [SerializeField] private PropsFactory _propsFactory;
 
   public void Start()
   {
@@ -34,7 +37,23 @@ public class GameState : MonoBehaviour
     
     _cameraFollower.SetTarget(player.transform);
     
+    CreateProps(data, 10);
+    
     _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
+  }
+
+  private void CreateProps(LevelData levelData, int count)
+  {
+    List<Vector3> targetPositions = new List<Vector3>(levelData.PositionsForProps);
+
+    for (int i = 0; i < count; i++)
+    {
+      int indx = Random.Range(0, targetPositions.Count);
+      
+      _propsFactory.Spawn(targetPositions[indx]);
+      
+      targetPositions.RemoveAt(indx);
+    }
   }
 
   private void PlayerDead()

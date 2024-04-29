@@ -22,6 +22,7 @@ namespace MapGeneration
 
     private Vector3[] _enemiesSpawnPos;
     private Vector3[] _enemiesTargetPos;
+    private Vector3[] _propsTargetPos;
     
     public LevelData GenerateMap(int rows, int columns, int enemiesCount)
     {
@@ -35,10 +36,23 @@ namespace MapGeneration
       SpawnWalls();
       CreateFloor();
       FindEnemiesData(enemiesCount);
+      FindPropsData();
       
-      return new LevelData(_playerSpawnCell.Position, _enemiesSpawnPos, _enemiesTargetPos);
+      return new LevelData(_playerSpawnCell.Position, _enemiesSpawnPos, _enemiesTargetPos, _propsTargetPos);
     }
 
+    private void FindPropsData()
+    {
+      _propsTargetPos = new Vector3[_gridColumns * _gridRows];
+
+      int indx = 0;
+      
+      foreach (Cell cell in _cells)
+      {
+        _propsTargetPos[indx++] = cell.Position;
+      }
+    }
+    
     private void FindEnemiesData(int count)
     {
       _enemiesTargetPos = new Vector3[count];
