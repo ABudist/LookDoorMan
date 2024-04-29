@@ -483,6 +483,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _propsObjPrefabs:
   - {fileID: -7945406542341099370, guid: 0d87f1999885148848aed5396ce01477, type: 3}
+  _coinPrefab: {fileID: 854772021701951302, guid: 3e453733f866d42bf89fc4e4b530526c, type: 3}
+  _maxOffset: 1
 --- !u!4 &882536914
 Transform:
   m_ObjectHideFlags: 0

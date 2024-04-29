@@ -37,20 +37,29 @@ public class GameState : MonoBehaviour
     
     _cameraFollower.SetTarget(player.transform);
     
-    CreateProps(data, 10);
+    CreateProps(data, 10, 3);
     
     _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
   }
 
-  private void CreateProps(LevelData levelData, int count)
+  private void CreateProps(LevelData levelData, int propsCount, int coinsCount)
   {
     List<Vector3> targetPositions = new List<Vector3>(levelData.PositionsForProps);
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < propsCount; i++)
     {
       int indx = Random.Range(0, targetPositions.Count);
       
       _propsFactory.Spawn(targetPositions[indx]);
+      
+      targetPositions.RemoveAt(indx);
+    }
+
+    for (int i = 0; i < coinsCount; i++)
+    {
+      int indx = Random.Range(0, targetPositions.Count);
+
+      _propsFactory.SpawnCoin(targetPositions[indx]);
       
       targetPositions.RemoveAt(indx);
     }
