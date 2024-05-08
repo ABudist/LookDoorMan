@@ -22,24 +22,35 @@ public class GameState : MonoBehaviour
   {
     Application.targetFrameRate = 50;
 
-    int enemiesCount = 6;
+    int rows = Random.Range(3, 8);
+    int columns = Random.Range(3, 8);
+    
+    int enemiesCount = (rows + columns) / 2;
     int hitsToPlayerDeathFromOneEnemy = 3;
     float enemyDamage = 30;
     float enemyHealth = 100;
     float playerHealth = enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount;
     float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 1);
     
-    LevelData data = _mapGenerator.GenerateMap(3, 8, enemiesCount);
-      
+    LevelData data = _mapGenerator.GenerateMap(rows, columns, enemiesCount);
+    
+    CreateProps(data, enemiesCount, enemiesCount);
+    
+    data.Floor.Bake();
+    
     Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
-
     player.OnDead += PlayerDead;
     
     _cameraFollower.SetTarget(player.transform);
     
-    CreateProps(data, 10, 3);
-    
     _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
+
+    data.Exit.OnPlayerExit += Restart;
+  }
+
+  private void Restart()
+  {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }
 
   private void CreateProps(LevelData levelData, int propsCount, int coinsCount)

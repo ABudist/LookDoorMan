@@ -13,7 +13,7 @@ namespace Props
     
     public void Spawn(Vector3 at)
     {
-      Instantiate(_propsObjPrefabs[Random.Range(0, _propsObjPrefabs.Length)], CalculatePosition(at), quaternion.identity);
+      Instantiate(_propsObjPrefabs[Random.Range(0, _propsObjPrefabs.Length)], CalculatePosition(at), Quaternion.Euler(0, Random.Range(0, 360), 0));
     }
 
     public void SpawnCoin(Vector3 at)

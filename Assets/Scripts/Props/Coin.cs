@@ -1,4 +1,5 @@
 using UnityEngine;
+using User;
 using Utils;
 
 namespace Props
@@ -22,6 +23,8 @@ namespace Props
     {
       if (obj.GetComponent<Player.Player>() != null)
       {
+        UserWallet.Add(1);
+        
         Destroy(gameObject);
       }
     }

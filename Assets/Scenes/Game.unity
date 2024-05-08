@@ -483,6 +483,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _propsObjPrefabs:
   - {fileID: -7945406542341099370, guid: 0d87f1999885148848aed5396ce01477, type: 3}
+  - {fileID: -7945406542341099370, guid: cbf6aad792a1f45c5a7d97fd4293d9f8, type: 3}
+  - {fileID: -7945406542341099370, guid: 18773911d7aa243bab0f6eae141ee4ff, type: 3}
+  - {fileID: -7945406542341099370, guid: 85642c55e7a3a41b7bf0b192a5782550, type: 3}
+  - {fileID: -7945406542341099370, guid: 69d0eb4d979fa4688a9c135888899310, type: 3}
+  - {fileID: -7945406542341099370, guid: d63236db9c35440338420bfe38360cfb, type: 3}
   _coinPrefab: {fileID: 854772021701951302, guid: 3e453733f866d42bf89fc4e4b530526c, type: 3}
   _maxOffset: 1
 --- !u!4 &882536914
@@ -495,7 +500,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.7237585, y: 1.3808334, z: -2.953074}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1150710266}
@@ -910,7 +915,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -250, y: 250}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1481879879
 MonoBehaviour:
@@ -945,7 +950,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8b2a75d8795c6439aad3438fa786dd3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

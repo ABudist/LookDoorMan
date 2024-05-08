@@ -19,6 +19,7 @@ namespace MapGeneration
 
     private Cell _exitCell;
     private Cell _playerSpawnCell;
+    private Exit _exit;
 
     private Vector3[] _enemiesSpawnPos;
     private Vector3[] _enemiesTargetPos;
@@ -34,11 +35,11 @@ namespace MapGeneration
       DeleteCycles();
       FindGamePlaces();
       SpawnWalls();
-      CreateFloor();
+      Floor floor = CreateFloor();
       FindEnemiesData(enemiesCount);
       FindPropsData();
-      
-      return new LevelData(_playerSpawnCell.Position, _enemiesSpawnPos, _enemiesTargetPos, _propsTargetPos);
+        
+      return new LevelData(_playerSpawnCell.Position, _enemiesSpawnPos, _enemiesTargetPos, _propsTargetPos, floor, _exit);
     }
 
     private void FindPropsData()
@@ -97,13 +98,13 @@ namespace MapGeneration
       }
     }
 
-    private void CreateFloor()
+    private Floor CreateFloor()
     {
       Floor floor = Instantiate(_floorPrefab);
       floor.transform.position = new Vector3(0, -0.5f,0);
       floor.transform.localScale = new Vector3(_gridColumns * CELL_SIZE, 1, _gridRows * CELL_SIZE);
-      
-      floor.Bake();
+
+      return floor;
     }
 
     private void GenerateCells(int rows, int columns)
@@ -192,9 +193,9 @@ namespace MapGeneration
 
     private void SpawnExit(Vector3 position, Vector3 rotation)
     {
-      Exit exit = Instantiate(_exitPrefab);
-      exit.transform.position = position + new Vector3(0, 0.5f, 0);
-      exit.transform.rotation = Quaternion.Euler(rotation);
+      _exit = Instantiate(_exitPrefab);
+      _exit.transform.position = position + new Vector3(0, 0.5f, 0);
+      _exit.transform.rotation = Quaternion.Euler(rotation);
     }
 
     private void FindGamePlaces()
