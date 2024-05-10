@@ -62,6 +62,7 @@ namespace MapGeneration
       }
 
       positions.Remove(_exitCell.Position);
+      positions.Remove(_playerSpawnCell.Position);
         
       _propsTargetPos = positions.ToArray();
     }

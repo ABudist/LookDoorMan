@@ -18,6 +18,7 @@ public class GameState : MonoBehaviour
   [SerializeField] private EnemyFactory _enemyFactory;
   [SerializeField] private PropsFactory _propsFactory;
   [SerializeField] private BlackScreen _blackScreen;
+  [SerializeField] private BackgroundEffect _background;
 
   public void Start()
   {
@@ -25,8 +26,8 @@ public class GameState : MonoBehaviour
     
     Application.targetFrameRate = 50;
 
-    int rows = Random.Range(15, 20);
-    int columns = Random.Range(15, 20);
+    int rows = Random.Range(5, 10);
+    int columns = Random.Range(5, 10);
     
     int enemiesCount = (rows + columns) / 2;
     int hitsToPlayerDeathFromOneEnemy = 3;
@@ -40,6 +41,8 @@ public class GameState : MonoBehaviour
     CreateProps(data, enemiesCount, enemiesCount);
     
     data.Floor.Bake();
+    
+    _background.Create(data.Floor.transform);
     
     Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
     player.OnDead += PlayerDead;
