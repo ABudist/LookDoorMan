@@ -55,7 +55,7 @@ namespace Enemies
     public void EndAttack()
     {
       if (Vector3.Distance(_playerHealth.transform.position, transform.position) < Constants.DistToInteract &&
-          Vector3.Angle(transform.forward, (_playerHealth.transform.position - transform.position).normalized) < 15) 
+          Vector3.Angle(transform.forward, (_playerHealth.transform.position - transform.position).normalized) < 30) 
       {
         _playerHealth.TakeDamage(_damage);
       }

@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.155285, y: 1.155285, z: 1.155285}
+  m_LocalScale: {x: 1.28, y: 1.28, z: 1.28}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5973791909779573206}
@@ -131,7 +131,7 @@ PrefabInstance:
       addedObject: {fileID: 8988374649508120687}
     - targetCorrespondingSourceObject: {fileID: 2513341517135006344, guid: d586cdda16abbf74e84b1e76b588d8bf, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6509514943026081073}
+      addedObject: {fileID: 3037751390994103607}
   m_SourcePrefab: {fileID: 100100000, guid: d586cdda16abbf74e84b1e76b588d8bf, type: 3}
 --- !u!4 &5973791909779573206 stripped
 Transform:
@@ -152,14 +152,14 @@ NavMeshObstacle:
   m_GameObject: {fileID: 6461817449522385772}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.025, y: 0.92600006, z: 0.025}
+  m_Shape: 0
+  m_Extents: {x: 0.17, y: 0.92600006, z: 0.17}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.034, y: 0.92200005, z: -0.022000002}
   m_TimeToStationary: 0.5
---- !u!65 &6509514943026081073
+--- !u!65 &3037751390994103607
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,5 +178,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6995847, y: 1.8521191, z: 0.6803515}
+  m_Size: {x: 0.37, y: 1.8521191, z: 0.5}
   m_Center: {x: 0.03410548, y: 0.9215625, z: -0.021863714}

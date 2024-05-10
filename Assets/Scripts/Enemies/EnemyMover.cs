@@ -20,8 +20,9 @@ namespace Enemies
       if(!_active)
         return;
       
-      _agent.speed = WalkSpeed;
+      _agent.ResetPath();
       
+      _agent.speed = WalkSpeed;
       Target = target;
       _agent.destination = target;
       LookTo((target - transform.position).normalized);
@@ -31,9 +32,9 @@ namespace Enemies
     {
       if(!_active)
         return;
-      
+        
       _agent.speed = RunSpeed;
-      
+        
       Target = target;
       _agent.destination = target;
     }

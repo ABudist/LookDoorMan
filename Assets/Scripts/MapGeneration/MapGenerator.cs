@@ -24,7 +24,7 @@ namespace MapGeneration
     private Vector3[] _enemiesSpawnPos;
     private Vector3[] _enemiesTargetPos;
     private Vector3[] _propsTargetPos;
-    
+
     public LevelData GenerateMap(int rows, int columns, int enemiesCount)
     {
       _gridRows = rows;
@@ -44,14 +44,26 @@ namespace MapGeneration
 
     private void FindPropsData()
     {
-      _propsTargetPos = new Vector3[_gridColumns * _gridRows];
-
-      int indx = 0;
-      
+      List<Vector3> positions = new List<Vector3>(_gridRows * _gridColumns);
+        
       foreach (Cell cell in _cells)
       {
-        _propsTargetPos[indx++] = cell.Position;
+        positions.Add(cell.Position);
       }
+
+      foreach (Vector3 enemySpawnPos in _enemiesSpawnPos)
+      {
+        positions.Remove(enemySpawnPos);
+      }
+
+      foreach (Vector3 enemyTargetPos in _enemiesTargetPos)
+      {
+        positions.Remove(enemyTargetPos);
+      }
+
+      positions.Remove(_exitCell.Position);
+        
+      _propsTargetPos = positions.ToArray();
     }
     
     private void FindEnemiesData(int count)
@@ -59,38 +71,38 @@ namespace MapGeneration
       _enemiesTargetPos = new Vector3[count];
       _enemiesSpawnPos = new Vector3[count];
 
-      List<Cell> cellsForSpawn = new List<Cell>(_gridColumns * _gridRows);
+      List<Cell> cellsForSpawnEnemies = new List<Cell>(_gridColumns * _gridRows);
 
       for (int row = 0; row < _gridRows; row++)
       {
-        cellsForSpawn.Add(_cells[row, 0]);
-        cellsForSpawn.Add(_cells[row, _gridColumns - 1]);
+        cellsForSpawnEnemies.Add(_cells[row, 0]);
+        cellsForSpawnEnemies.Add(_cells[row, _gridColumns - 1]);
       }
 
       for (int column = 0; column < _gridColumns; column++)
       {
-        cellsForSpawn.Add(_cells[0, column]);
-        cellsForSpawn.Add(_cells[_gridRows - 1, column]);
+        cellsForSpawnEnemies.Add(_cells[0, column]);
+        cellsForSpawnEnemies.Add(_cells[_gridRows - 1, column]);
       }
       
-      cellsForSpawn.Remove(_playerSpawnCell);
-      cellsForSpawn.Remove(GetLeftCell(_playerSpawnCell));
-      cellsForSpawn.Remove(GetRightCell(_playerSpawnCell));
-      cellsForSpawn.Remove(GetUpperCell(_playerSpawnCell));
-      cellsForSpawn.Remove(GetBottomCell(_playerSpawnCell));
+      cellsForSpawnEnemies.Remove(_playerSpawnCell);
+      cellsForSpawnEnemies.Remove(GetLeftCell(_playerSpawnCell));
+      cellsForSpawnEnemies.Remove(GetRightCell(_playerSpawnCell));
+      cellsForSpawnEnemies.Remove(GetUpperCell(_playerSpawnCell));
+      cellsForSpawnEnemies.Remove(GetBottomCell(_playerSpawnCell));
 
       for (int i = 0; i < count; i++)
       {
-        Cell spawn = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
-        cellsForSpawn.Remove(spawn);
+        Cell spawn = cellsForSpawnEnemies[Random.Range(0, cellsForSpawnEnemies.Count)];
+        cellsForSpawnEnemies.Remove(spawn);
         
-        Cell target = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
-        cellsForSpawn.Remove(target);
+        Cell target = cellsForSpawnEnemies[Random.Range(0, cellsForSpawnEnemies.Count)];
+        cellsForSpawnEnemies.Remove(target);
 
         if (spawn == target)
         {
-          target = cellsForSpawn[Random.Range(0, cellsForSpawn.Count)];
-          cellsForSpawn.Remove(target);
+          target = cellsForSpawnEnemies[Random.Range(0, cellsForSpawnEnemies.Count)];
+          cellsForSpawnEnemies.Remove(target);
         }
         
         _enemiesSpawnPos[i] = spawn.Position;

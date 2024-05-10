@@ -30,7 +30,7 @@ namespace Enemies.StateMachine
       _mover = mover;
       _startPos = startPos;
       _endPos = endPos;
-
+        
       health.OnChanged += Attacked;
     }
     
@@ -61,7 +61,7 @@ namespace Enemies.StateMachine
       while (true)
       {
         float distToTarget = Vector3.Distance(_mover.transform.position, _currentTargetPos);
-        
+          
         if (distToTarget > Constants.DistToInteract && _mover.Target != _currentTargetPos)
         {
           _mover.WalkTo(_currentTargetPos);
@@ -69,15 +69,20 @@ namespace Enemies.StateMachine
         else if(distToTarget < Constants.DistToInteract &&  _mover.Target == _currentTargetPos)
         {
           yield return new WaitForSeconds(Random.Range(1, 4));
-          
-          if (_currentTargetPos == _endPos)
-            _currentTargetPos = _startPos;
-          else
-            _currentTargetPos = _endPos;
+
+          ChangeDirection();
         }
         
         yield return null;
       }
+    }
+
+    private void ChangeDirection()
+    {
+      if (_currentTargetPos == _endPos)
+        _currentTargetPos = _startPos;
+      else
+        _currentTargetPos = _endPos;
     }
 
     private IEnumerator CheckPlayerDistance()

@@ -17,13 +17,16 @@ public class GameState : MonoBehaviour
   [SerializeField] private Button _attackButton;
   [SerializeField] private EnemyFactory _enemyFactory;
   [SerializeField] private PropsFactory _propsFactory;
+  [SerializeField] private BlackScreen _blackScreen;
 
   public void Start()
   {
+    _blackScreen.From(null);
+    
     Application.targetFrameRate = 50;
 
-    int rows = Random.Range(3, 8);
-    int columns = Random.Range(3, 8);
+    int rows = Random.Range(15, 20);
+    int columns = Random.Range(15, 20);
     
     int enemiesCount = (rows + columns) / 2;
     int hitsToPlayerDeathFromOneEnemy = 3;
@@ -50,7 +53,10 @@ public class GameState : MonoBehaviour
 
   private void Restart()
   {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    _blackScreen.To(() =>
+    {
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    });
   }
 
   private void CreateProps(LevelData levelData, int propsCount, int coinsCount)
@@ -84,6 +90,7 @@ public class GameState : MonoBehaviour
   private IEnumerator DelayAndRestart()
   {
     yield return new WaitForSeconds(3);
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    
+    Restart();
   }
 }

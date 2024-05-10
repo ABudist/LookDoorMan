@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.7237585, y: 1.3808334, z: -2.953074}
-  m_LocalScale: {x: 0.77079, y: 0.77079, z: 0.77079}
+  m_LocalScale: {x: 1.23, y: 1.23, z: 1.23}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8665976078541263852}
@@ -124,40 +124,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6701537745073358240, guid: 2ba5ac2de7ff0764e8874d18fcb4484c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4897392215559054225}
-    - targetCorrespondingSourceObject: {fileID: 6701537745073358240, guid: 2ba5ac2de7ff0764e8874d18fcb4484c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1946732480291085757}
     - targetCorrespondingSourceObject: {fileID: 6701537745073358240, guid: 2ba5ac2de7ff0764e8874d18fcb4484c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7089188417098908868}
+      addedObject: {fileID: 3680281974066630619}
   m_SourcePrefab: {fileID: 100100000, guid: 2ba5ac2de7ff0764e8874d18fcb4484c, type: 3}
 --- !u!1 &8288993830759057750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6701537745073358240, guid: 2ba5ac2de7ff0764e8874d18fcb4484c, type: 3}
   m_PrefabInstance: {fileID: 3317128632059825398}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4897392215559054225
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8288993830759057750}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1.1891466, y: 1.019597, z: 0.6447096}
-  m_Center: {x: -0.00027024746, y: 0.5097984, z: 0.055406436}
 --- !u!208 &1946732480291085757
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -168,13 +144,13 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.025, y: 0.92600006, z: 0.025}
+  m_Extents: {x: 0.56, y: 0.92600006, z: 0.255}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.034, y: 0.92200005, z: -0.022000002}
   m_TimeToStationary: 0.5
---- !u!65 &7089188417098908868
+--- !u!65 &3680281974066630619
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,8 +169,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1891466, y: 1.019597, z: 0.6447096}
-  m_Center: {x: -0.00027024746, y: 0.5097984, z: 0.055406436}
+  m_Size: {x: 0.98, y: 1.019597, z: 0.4}
+  m_Center: {x: -0.00027000904, y: 0.5097983, z: 0.055406436}
 --- !u!4 &8665976078541263852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6218193170447474458, guid: 2ba5ac2de7ff0764e8874d18fcb4484c, type: 3}
