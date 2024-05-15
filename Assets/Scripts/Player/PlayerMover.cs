@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Player
@@ -10,12 +11,17 @@ namespace Player
     
     private Joystick _joystick;
     private Rigidbody _rigidbody;
-    private bool _active = true;
+    private bool _active;
 
     public void Construct(Joystick joystick)
     {
       _joystick = joystick;
       _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+      _active = true;
     }
 
     private void Update()
