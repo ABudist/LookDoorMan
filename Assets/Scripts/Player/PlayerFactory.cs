@@ -1,3 +1,4 @@
+using CharacterSelector;
 using UI;
 using UnityEngine;
 
@@ -5,11 +6,9 @@ namespace Player
 {
   public class PlayerFactory : MonoBehaviour
   {
-    [SerializeField] private Player _prefab;
-
     public Player CreatePlayer(Vector3 at, Joystick joystick, Button attackButton, float health, float damage)
     {
-      Player spawned = Instantiate(_prefab);
+      Player spawned = Instantiate(Characters.Instance.GetSelectedPrefab());
       spawned.transform.position = at;
 
       PlayerMover playerMover = spawned.GetComponent<PlayerMover>();

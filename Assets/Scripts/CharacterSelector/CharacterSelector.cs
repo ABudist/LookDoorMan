@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CarSelector;
 using UI;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using User;
+using Random = UnityEngine.Random;
 
 namespace CharacterSelector
 {
@@ -17,13 +19,20 @@ namespace CharacterSelector
     [SerializeField] private CharactersKit[] _kits;
     [SerializeField] private BuyPanel _buyPanelPrefab;
     [SerializeField] private Transform _parentForBuyPanel;
+    [SerializeField] private ParticleSystem _particleSystem;
 
-    private const int PRICE = 100;
+    private const int PRICE = 0;
     
     private SelectCharacterButton _currentSelected;
     private bool _active = true;
+    private bool _start = true;
 
     private const int CAPACITY_IN_KIT = 9;
+
+    private void Start()
+    {
+      Application.targetFrameRate = 50;
+    }
 
     public void TrySelect(SelectCharacterButton button)
     {
@@ -32,10 +41,12 @@ namespace CharacterSelector
 
       if (UserCharacterData.IsOpened(button.CurrentConfig.Id))
       {
-        SelectCar(button);
+        SelectCharacter(button, !_start);
+        _start = false;
       }
       else
       {
+        return;
         Transform panel = Instantiate(_buyPanelPrefab, _parentForBuyPanel).transform;
         panel.GetChild(1).transform.localScale = Vector3.one;
         panel.transform.localPosition = new Vector3(0, 0, -1500);
@@ -77,19 +88,19 @@ namespace CharacterSelector
           UserWallet.Subtract(PRICE);
           
           UserCharacterData.Open(btnToOpenCharacter.CurrentConfig.Id);
-          SelectCar(btnToOpenCharacter);
+          SelectCharacter(btnToOpenCharacter, false);
           _active = true;
           characterSelectPanel.SetBlocked(false);
         });
       }
     }
 
-    public void SelectCurrentCar()
+    public void SelectCurrentCharacter()
     {
       SceneManager.LoadScene("Game");
     }
 
-    private void SelectCar(SelectCharacterButton button)
+    private void SelectCharacter(SelectCharacterButton button, bool withEffect)
     {
       UserCharacterData.CurrentId = button.CurrentConfig.Id;
 
@@ -100,6 +111,9 @@ namespace CharacterSelector
 
       _currentSelected = button;
       _podium.SetCharacter(button.CurrentConfig);
+      
+      if(withEffect)
+        _particleSystem.Play();
     }
 
     private CharactersKit GetKitWithClosedCars()

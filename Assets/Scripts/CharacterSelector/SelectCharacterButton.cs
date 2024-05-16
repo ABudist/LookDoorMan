@@ -55,7 +55,7 @@ namespace CharacterSelector
     {
       if (UserCharacterData.CurrentId == _currentConfig.Id)
       {
-        _characterSelector.SelectCurrentCar();
+        _characterSelector.SelectCurrentCharacter();
       }
       else
       {

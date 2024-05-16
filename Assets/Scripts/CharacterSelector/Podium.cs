@@ -7,6 +7,8 @@ namespace CarSelector
 {
   public class Podium : MonoBehaviour
   {
+    public Vector3 SpawnedObjPos => _spawnedObj.transform.position + new Vector3(0, 0.8f, -1f);
+    
     [SerializeField] private Vector3 _carScale;
     [SerializeField] private Vector3 _carRotation;
     [SerializeField] private Vector3 _carLocalPosition;

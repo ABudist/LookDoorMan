@@ -85,8 +85,8 @@ namespace CarSelector
       _audioSource.PlayOneShot(_twistAudioClip);
       
       yield return DOVirtual.Float(rotatorSpeed, rotatorSpeed * 100, 1f, value => { podiumRotator.Speed = value; }).WaitForCompletion();
-      
-      Instantiate(_explosiveEffect, centerScreen, Quaternion.identity);
+        
+      Instantiate(_explosiveEffect, _podium.SpawnedObjPos, Quaternion.identity);
       
       _audioSource.PlayOneShot(_dzinAudioClip);
       
