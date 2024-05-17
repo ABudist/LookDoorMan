@@ -48,6 +48,7 @@ public class GameState : MonoBehaviour
     player.OnDead += PlayerDead;
     
     _cameraFollower.SetTarget(player.transform);
+    _cameraFollower.SetBorders(data.Floor.transform);
     
     _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
 
