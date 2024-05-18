@@ -23,6 +23,8 @@ namespace MapGeneration
 
     public void Open()
     {
+      SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Door);
+      
       DOTween.Sequence()
         .Append(_left.DOLocalMove(_leftOpenedPos, _duration))
         .Join(_right.DOLocalMove(_rightOpenedPos, _duration));
@@ -30,6 +32,8 @@ namespace MapGeneration
 
     public void Close()
     {
+      SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Door);
+
       DOTween.Sequence()
         .Append(_left.DOLocalMove(_leftClosedPos, _duration))
         .Join(_right.DOLocalMove(_rightClosedPos, _duration));

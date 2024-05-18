@@ -13,10 +13,7 @@ namespace CarSelector
     [SerializeField] private Podium _podium;
     [SerializeField] private float _delayBtwSteps;
     [SerializeField] private GameObject _explosiveEffect;
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _twistAudioClip;
-    [SerializeField] private AudioClip _dzinAudioClip;
-    [SerializeField] private AudioClip _tapAudioClip;
+    
     private Vector3 _origScale;
     private const float SCALER = 0.8f;
     
@@ -82,14 +79,14 @@ namespace CarSelector
         .Join(_podium.transform.DOScale(startScale * 1.5f, 1f))
         .WaitForCompletion();
 
-      _audioSource.PlayOneShot(_twistAudioClip);
+      SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Twist);
       
       yield return DOVirtual.Float(rotatorSpeed, rotatorSpeed * 100, 1f, value => { podiumRotator.Speed = value; }).WaitForCompletion();
         
       Instantiate(_explosiveEffect, _podium.SpawnedObjPos, Quaternion.identity);
       
-      _audioSource.PlayOneShot(_dzinAudioClip);
-      
+      SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.CharacterOpened);
+
       _podium.SetCharacter(characterConfigConfig);
 
       yield return DOTween.Sequence()
@@ -107,7 +104,7 @@ namespace CarSelector
       if (highlight)
       {
         target.transform.localScale = _origScale * SCALER;
-        _audioSource.PlayOneShot(_tapAudioClip);
+        SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Click);
       }
       else
       {

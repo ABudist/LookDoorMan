@@ -57,6 +57,8 @@ public class GameState : MonoBehaviour
 
   private void Restart()
   {
+    SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Win);
+    
     _blackScreen.To(() =>
     {
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);

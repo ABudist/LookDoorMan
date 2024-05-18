@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &396021935872978091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5046546413598149152}
+  - component: {fileID: 5159119080597925588}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5046546413598149152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396021935872978091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.000372, y: 8, z: -12.994057}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5159119080597925588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396021935872978091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ba778b347c4565957a6c484b70c126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Click: {fileID: 8300000, guid: bf59b2a161f0d6d4f94ec3570d62072d, type: 3}
+  CoinTook: {fileID: 8300000, guid: 10640a58e289449789ed30f6d17c05b1, type: 3}
+  Attack: {fileID: 8300000, guid: 4090ff222d15c3944a988cdbedcee145, type: 3}
+  Footstep: {fileID: 8300000, guid: d9a50401294cf994db997588f91d42e3, type: 3}
+  Punch: {fileID: 8300000, guid: 4069576da0bca421d9240f4f5a740144, type: 3}
+  Death: {fileID: 8300000, guid: 15566200c6da44e9f8705fdc3b84b4a6, type: 3}
+  Appearing: {fileID: 8300000, guid: ef6ea6a7dd0b84ebd8cc809211139a28, type: 3}
+  Door: {fileID: 8300000, guid: a8bdb75e5f722485dad68df716a1f9c5, type: 3}
+  Win: {fileID: 8300000, guid: 996b5b008b7a94172be6a21abe5a2775, type: 3}
+  CharacterOpened: {fileID: 8300000, guid: 99f9c0aec4f7345f7ad0ecf364d2ee6c, type: 3}
+  Twist: {fileID: 8300000, guid: 2f18838dd0f4c4ac7bfcf77bc93262b4, type: 3}

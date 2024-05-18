@@ -50,6 +50,7 @@ namespace Enemies
 
     public void StartAttack()
     {
+      SoundManager.SoundManager.Instance.PlayOneShotRandomPitch(SoundManager.SoundManager.Instance.Attack);
     }
 
     public void EndAttack()

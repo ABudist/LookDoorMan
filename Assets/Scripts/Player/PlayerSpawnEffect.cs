@@ -21,6 +21,8 @@ namespace Player
       yield return DOTween.Sequence()
         .AppendInterval(1.5f).WaitForCompletion();
 
+      SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Appearing);
+      
       GameObject effect = Instantiate(_effect);
       effect.transform.position = transform.position;
 

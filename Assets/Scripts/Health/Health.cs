@@ -23,12 +23,16 @@ namespace Health
       if(Value <= 0)
         return;
       
+      SoundManager.SoundManager.Instance.PlayOneShotRandomPitch(SoundManager.SoundManager.Instance.Punch);
+      
       Value -= damage;
 
       OnChanged?.Invoke();
       
       if (Value <= 0)
       {
+        SoundManager.SoundManager.Instance.PlayOneShotRandomPitch(SoundManager.SoundManager.Instance.Death);
+        
         OnEnd?.Invoke();
       }
     }

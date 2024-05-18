@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace Player
 {
   public class PlayerAnimator : MonoBehaviour
   {
+    public event Action OnFootstep; 
+    
     private Player _player => GetComponent<Player>();
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerMover _playerMover;
@@ -24,6 +27,11 @@ namespace Player
       _animator.SetFloat(Speed, _playerMover.NormalizedSpeed);
     }
 
+    public void Footstep()
+    {
+      OnFootstep?.Invoke();
+    }
+    
     private void PlayDeadAnim()
     {
       _animator.SetTrigger(Dead);

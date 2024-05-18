@@ -9,6 +9,7 @@ namespace UI
     public event Action OnClick;
 
     [SerializeField] private float _scaleFactor;
+    [SerializeField] private bool _sound = true;
 
     private Vector3 _origScale;
 
@@ -36,6 +37,9 @@ namespace UI
       if (_downed)
       {
         UpEffect();
+
+        if (_sound)
+          SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Click);
 
         OnClick?.Invoke();
       }
