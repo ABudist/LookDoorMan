@@ -1560,6 +1560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyStateMachine: {fileID: 5643575619943415209}
   _enemyVisionArea: {fileID: 6337679688963989472}
+  _hideEffectPrefab: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 3}
 --- !u!114 &-7501319075999089786
 MonoBehaviour:
   m_ObjectHideFlags: 0

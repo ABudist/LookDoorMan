@@ -10,6 +10,7 @@ namespace Enemies
     public Vector3 TargetPatrolPosition { get; private set; }
     [SerializeField] private EnemyStateMachine _enemyStateMachine;
     [SerializeField] private EnemyVisionArea _enemyVisionArea;
+    [SerializeField] private GameObject _hideEffectPrefab;
     private EnemyMover _enemyMover => GetComponent<EnemyMover>();
     private EnemyAttack _enemyAttack => GetComponent<EnemyAttack>();
     private Health.Health _health => GetComponent<Health.Health>();
@@ -28,9 +29,17 @@ namespace Enemies
       _enemyAttack.enabled = false;
       _enemyMover.SetInactive();
 
-      DOTween.Sequence()
-        .AppendInterval(4)
-        .Append(transform.DOMoveY(-1, 2f));
+      StartCoroutine(Hide());
+    }
+
+    private IEnumerator Hide()
+    {
+      yield return new WaitForSeconds(4);
+
+      GameObject effect = Instantiate(_hideEffectPrefab);
+      effect.transform.position = transform.position;
+      
+      yield return DOTween.Sequence().Append(transform.DOMoveY(-1, 2f)).WaitForCompletion();
     }
   }
 }

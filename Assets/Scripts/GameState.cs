@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Enemies;
 using MapGeneration;
 using Player;
@@ -7,6 +8,7 @@ using Props;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using User;
 
 public class GameState : MonoBehaviour
 {
@@ -22,15 +24,15 @@ public class GameState : MonoBehaviour
 
   public void Start()
   {
-    _blackScreen.From(null);
+    _blackScreen.From(UpdateLevel);
     
     Application.targetFrameRate = 50;
 
-    int rows = Random.Range(5, 10);
-    int columns = Random.Range(5, 10);
+    int rows = Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
+    int columns = Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
     
     int enemiesCount = (rows + columns) / 2;
-    int hitsToPlayerDeathFromOneEnemy = 3;
+    int hitsToPlayerDeathFromOneEnemy = 2;
     float enemyDamage = 30;
     float enemyHealth = 100;
     float playerHealth = enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount;
@@ -52,13 +54,26 @@ public class GameState : MonoBehaviour
     
     _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
 
-    data.Exit.OnPlayerExit += Restart;
+    data.Exit.OnPlayerExit += Win;
+  }
+
+  private void UpdateLevel()
+  {
+    if(UserLevelData.NeedToNextLevel)
+      DOTween.Sequence().AppendInterval(1f).onComplete += UserLevelData.NextLevel;
+  }
+
+  private void Win()
+  {
+    SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Win);
+
+    UserLevelData.NeedToNextLevel = true;
+
+    Restart();
   }
 
   private void Restart()
   {
-    SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Win);
-    
     _blackScreen.To(() =>
     {
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -90,6 +105,8 @@ public class GameState : MonoBehaviour
 
   private void PlayerDead()
   {
+    UserLevelData.NeedToNextLevel = false;
+    
     StartCoroutine(DelayAndRestart());
   }
 
