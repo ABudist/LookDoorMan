@@ -5,7 +5,9 @@ namespace Player
 {
   public class Player : MonoBehaviour
   {
+    public bool Active { get; private set; }
     public event Action OnDead;
+    public event Action OnResurrected;
     
     private Health.Health _health;
     private PlayerMover _playerMover;
@@ -23,22 +25,45 @@ namespace Player
       _health.OnChanged += Vibrate;
       
       _playerSpawnEffect.Show();
+      Active = true;
+    }
+
+    public void Resurrect()
+    {
+      _playerMover.SetActive(true);
+      _playerAttack.SetActive(true);
+
+      _health.Restore();
+      
+      Active = true;
+      
+      OnResurrected?.Invoke();
+    }
+    
+    private void OnDestroy()
+    {
+      if (_health != null)
+      {
+        _health.OnEnd -= Dead;
+        _health.OnChanged -= Vibrate;
+      }
     }
 
     private void Dead()
     {
-      _playerMover.SetInactive();
-      _playerAttack.SetInactive();
+      _playerMover.SetActive(false);
+      _playerAttack.SetActive(false);
+
+      Active = false;
       
       OnDead?.Invoke();
-
-      _health.OnEnd -= Dead;
-      _health.OnChanged -= Vibrate;
     }
 
     private void Vibrate()
     {
+      #if !UNITY_EDITOR
       Vibration.VibrateIOS(ImpactFeedbackStyle.Light);
+      #endif
     }
   }
 }

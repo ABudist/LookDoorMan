@@ -6,6 +6,7 @@ using MapGeneration;
 using Player;
 using Props;
 using UI;
+using UI.GameOverScreen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using User;
@@ -21,6 +22,9 @@ public class GameState : MonoBehaviour
   [SerializeField] private PropsFactory _propsFactory;
   [SerializeField] private BlackScreen _blackScreen;
   [SerializeField] private BackgroundEffect _background;
+  [SerializeField] private GameOver _gameOver;
+  
+  private Player.Player _player;
 
   public void Start()
   {
@@ -32,10 +36,10 @@ public class GameState : MonoBehaviour
     int columns = Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
     
     int enemiesCount = (rows + columns) / 2;
-    int hitsToPlayerDeathFromOneEnemy = 2;
+    int hitsToPlayerDeathFromOneEnemy = 3;
     float enemyDamage = 30;
     float enemyHealth = 100;
-    float playerHealth = enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount;
+    float playerHealth = (enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount) * 0.8f;
     float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 1);
     
     LevelData data = _mapGenerator.GenerateMap(rows, columns, enemiesCount);
@@ -46,15 +50,17 @@ public class GameState : MonoBehaviour
     
     _background.Create(data.Floor.transform);
     
-    Player.Player player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
-    player.OnDead += PlayerDead;
+    _player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
+    _player.OnDead += PlayerDead;
     
-    _cameraFollower.SetTarget(player.transform);
+    _cameraFollower.SetTarget(_player.transform);
     _cameraFollower.SetBorders(data.Floor.transform);
     
-    _enemyFactory.SpawnEnemies(data, enemiesCount, player, enemyDamage, enemyHealth);
+    _enemyFactory.SpawnEnemies(data, enemiesCount, _player, enemyDamage, enemyHealth);
 
     data.Exit.OnPlayerExit += Win;
+
+    _gameOver.OnContinue += ContinueGame;
   }
 
   private void UpdateLevel()
@@ -107,13 +113,12 @@ public class GameState : MonoBehaviour
   {
     UserLevelData.NeedToNextLevel = false;
     
-    StartCoroutine(DelayAndRestart());
+    _gameOver.gameObject.SetActive(true);
+    _gameOver.Show();
   }
 
-  private IEnumerator DelayAndRestart()
+  private void ContinueGame()
   {
-    yield return new WaitForSeconds(3);
-    
-    Restart();
+    _player.Resurrect();
   }
 }

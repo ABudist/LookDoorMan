@@ -83,9 +83,9 @@ namespace Player
       _attackTimer -= Time.deltaTime;
     }
 
-    public void SetInactive()
+    public void SetActive(bool active)
     {
-      _active = false;
+      _active = active;
     }
 
     private void TryAttack()

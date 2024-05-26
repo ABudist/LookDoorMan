@@ -26,8 +26,10 @@ namespace Enemies
     {
       if (obj.TryGetComponent(out Player.Player player))
       {
-        OnPlayerEnter?.Invoke(player);
-        _visionArea.SetColor(_playerDetectColor);
+        if (player.Active)
+        {
+          OnPlayerEnter?.Invoke(player);
+        }
       }
     }
 
@@ -35,13 +37,17 @@ namespace Enemies
     {
       if (obj.GetComponent<Player.Player>() != null)
       {
-        _visionArea.SetOrigColor();
       }
     }
 
     public void Hide()
     {
       _visionArea.gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+      _visionArea.gameObject.SetActive(true);
     }
   }
 }

@@ -15,11 +15,18 @@ namespace Player
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Dead = Animator.StringToHash("Dead");
+    private static readonly int ResurrectHash = Animator.StringToHash("Resurrect");
 
     private void Awake()
     {
       _playerAttack.OnAttack += PlayAttackAnimation;
       _player.OnDead += PlayDeadAnim;
+      _player.OnResurrected += Resurrect;
+    }
+
+    private void Resurrect()
+    {
+      _animator.SetTrigger(ResurrectHash);
     }
 
     private void Update()

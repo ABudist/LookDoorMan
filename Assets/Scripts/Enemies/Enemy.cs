@@ -23,11 +23,11 @@ namespace Enemies
       _health.Construct(health);
     }
 
-    public void SetInactive()
+    public void SetActive(bool active)
     {
-      GetComponent<CapsuleCollider>().enabled = false;
-      _enemyAttack.enabled = false;
-      _enemyMover.SetInactive();
+      GetComponent<CapsuleCollider>().enabled = active;
+      _enemyAttack.enabled = active;
+      _enemyMover.SetActive(active);
 
       StartCoroutine(Hide());
     }

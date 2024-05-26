@@ -19,9 +19,7 @@ namespace Enemies
     {
       if(!_active)
         return;
-      
-      _agent.ResetPath();
-      
+        
       _agent.speed = WalkSpeed;
       Target = target;
       _agent.destination = target;
@@ -53,11 +51,11 @@ namespace Enemies
       _agent.ResetPath();
     }
 
-    public void SetInactive()
+    public void SetActive(bool active)
     {
       Stop();
-      _agent.enabled = false;
-      _active = false;
+     // _agent.enabled = active;
+      _active = active;
     }
   }
 }

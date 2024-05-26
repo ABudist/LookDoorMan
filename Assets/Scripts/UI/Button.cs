@@ -15,7 +15,7 @@ namespace UI
 
     private bool _downed;
 
-    private void Start()
+    private void Awake()
     {
       _origScale = transform.localScale;
     }

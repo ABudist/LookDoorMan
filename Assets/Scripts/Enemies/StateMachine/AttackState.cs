@@ -13,13 +13,15 @@ namespace Enemies.StateMachine
 
     private Coroutine _coroutine;
     private DeadState _deadState;
+    private PatrolState _patrolState;
 
-    public void Construct(EnemyStateMachine enemyStateMachine, EnemyMover enemyMover, EnemyAttack enemyAttack, Player.Player player, 
-      DeadState deadState, Health.Health enemyHealth)
+    public void Construct(EnemyStateMachine enemyStateMachine, EnemyMover enemyMover, EnemyAttack enemyAttack, Player.Player player,
+      DeadState deadState, Health.Health enemyHealth, PatrolState patrolState)
     {
+      _patrolState = patrolState;
       _deadState = deadState;
       enemyHealth.OnEnd += Dead;
-      player.GetComponent<Health.Health>().OnEnd += Dead;
+      player.GetComponent<Health.Health>().OnEnd += ReturnToPatrol;
       _enemyAttack = enemyAttack;
       _player = player;
       _enemyMover = enemyMover;
@@ -33,13 +35,20 @@ namespace Enemies.StateMachine
 
     public void Exit()
     {
-      _enemyStateMachine.StopCoroutine(_coroutine);
+      if (_coroutine != null)
+        _enemyStateMachine.StopCoroutine(_coroutine);
     }
 
     private IEnumerator AttackCor()
     {
       while (true)
       {
+        if (!_player.Active)
+        {
+          ReturnToPatrol();
+          yield break;
+        }
+
         if (!_enemyAttack.IsReady)
         {
           _enemyMover.LookTo((_player.transform.position - _enemyMover.transform.position).normalized);
@@ -63,6 +72,13 @@ namespace Enemies.StateMachine
 
         yield return null;
       }
+    }
+
+    private void ReturnToPatrol()
+    {
+      _enemyMover.Stop();
+
+      _enemyStateMachine.ChangeState(_patrolState);
     }
 
     private void Dead()

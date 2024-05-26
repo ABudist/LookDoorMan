@@ -21,7 +21,7 @@ namespace Health
       _canvas.worldCamera = Camera.main;
       _health.OnChanged += UpdateView;
     }
-
+    
     private void OnDestroy()
     {
       _health.OnChanged -= UpdateView;
@@ -35,10 +35,7 @@ namespace Health
       
       _filled.fillAmount = _health.NormalizedValue;
 
-      if (_health.NormalizedValue <= 0)
-      {
-        gameObject.SetActive(false);
-      }
+      gameObject.SetActive(_health.NormalizedValue > 0);
     }
   }
 }

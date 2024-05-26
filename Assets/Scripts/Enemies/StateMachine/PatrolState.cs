@@ -36,6 +36,7 @@ namespace Enemies.StateMachine
     
     public void Enter()
     {
+      _enemyVisionArea.Show();
       _enemyVisionArea.OnPlayerEnter += PlayerEnter;
       _coroutine = _enemyStateMachine.StartCoroutine(PatrolCoroutine());
       _coroutine2 = _enemyStateMachine.StartCoroutine(CheckPlayerDistance());
@@ -57,20 +58,21 @@ namespace Enemies.StateMachine
       {
         _currentTargetPos = _endPos;
       }
-      
+        
       while (true)
       {
         float distToTarget = Vector3.Distance(_mover.transform.position, _currentTargetPos);
-          
-        if (distToTarget > Constants.DistToInteract && _mover.Target != _currentTargetPos)
-        {
-          _mover.WalkTo(_currentTargetPos);
-        }
-        else if(distToTarget < Constants.DistToInteract &&  _mover.Target == _currentTargetPos)
+
+        if(distToTarget < Constants.DistToInteract)
         {
           yield return new WaitForSeconds(Random.Range(1, 4));
 
           ChangeDirection();
+        }
+        else
+        {
+          if(_mover.SpeedNormalized < 0.01)
+            _mover.WalkTo(_currentTargetPos);
         }
         
         yield return null;
@@ -91,7 +93,11 @@ namespace Enemies.StateMachine
       {
         if (Vector3.Distance(_mover.transform.position, _player.transform.position) < Constants.DistToInteract)
         {
-          _enemyStateMachine.ChangeState(_followToPlayerState);
+          if (_player.Active)
+          {            
+            _enemyStateMachine.ChangeState(_followToPlayerState);
+            yield break;
+          }
         }
         
         yield return null;

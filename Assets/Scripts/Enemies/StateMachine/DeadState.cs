@@ -11,7 +11,7 @@ namespace Enemies.StateMachine
     
     public void Enter()
     {
-      _enemy.SetInactive();
+      _enemy.SetActive(false);
     }
 
     public void Exit()

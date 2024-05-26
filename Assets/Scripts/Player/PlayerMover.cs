@@ -35,9 +35,9 @@ namespace Player
       }
     }
 
-    public void SetInactive()
+    public void SetActive(bool active)
     {
-      _active = false;
+      _active = active;
     }
   }
 }

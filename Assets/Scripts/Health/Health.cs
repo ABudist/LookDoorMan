@@ -18,6 +18,12 @@ namespace Health
       Value = maximum;
     }
 
+    public void Restore()
+    {
+      Value = _maximum;
+      OnChanged?.Invoke();
+    }
+
     public void TakeDamage(float damage)
     {
       if(Value <= 0)
