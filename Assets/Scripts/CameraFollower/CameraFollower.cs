@@ -10,7 +10,7 @@ namespace CameraFollower
     private Vector3 _minPos;
     private Vector3 _maxPos;
     private float _factorX = 0.9f;
-    private float _factorZ = 0.7f;
+    private float _factorZ = 0.8f;
     
     private Transform _target;
 

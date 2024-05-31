@@ -37,7 +37,7 @@ namespace Enemies
       yield return new WaitForSeconds(4);
 
       GameObject effect = Instantiate(_hideEffectPrefab);
-      effect.transform.position = transform.position;
+      effect.transform.position = transform.position + new Vector3(0, 1, 0);
       
       yield return DOTween.Sequence().Append(transform.DOMoveY(-2, 2f)).WaitForCompletion();
       
