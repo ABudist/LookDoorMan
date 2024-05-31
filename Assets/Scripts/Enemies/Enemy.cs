@@ -39,7 +39,9 @@ namespace Enemies
       GameObject effect = Instantiate(_hideEffectPrefab);
       effect.transform.position = transform.position;
       
-      yield return DOTween.Sequence().Append(transform.DOMoveY(-1, 2f)).WaitForCompletion();
+      yield return DOTween.Sequence().Append(transform.DOMoveY(-2, 2f)).WaitForCompletion();
+      
+      gameObject.SetActive(false);
     }
   }
 }

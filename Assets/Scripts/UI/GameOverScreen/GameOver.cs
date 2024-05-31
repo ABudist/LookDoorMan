@@ -1,5 +1,8 @@
 using System;
+using UI.BuyScreen;
+using UI.SettingsScreen;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.GameOverScreen
 {
@@ -10,7 +13,9 @@ namespace UI.GameOverScreen
     [SerializeField] private Background _background;
     [SerializeField] private Continue _continue;
     [SerializeField] private Buttons _buttons;
-
+    [SerializeField] private Settings _settings;
+    [SerializeField] private Buy _buy;
+    
     public void Show()
     {
       _buttons.gameObject.SetActive(false);
@@ -21,11 +26,28 @@ namespace UI.GameOverScreen
       _continue.Show(Continue, ShowButtons);
     }
 
+    public void OpenSettings()
+    {
+      _settings.gameObject.SetActive(true);
+      _settings.Open();
+    }
+
+    public void OpenSelector()
+    {
+      SceneManager.LoadScene("CharacterSelector");
+    }
+
+    public void OpenBuy()
+    {
+      _buy.gameObject.SetActive(true);
+      _buy.Open();
+    }
+
     private void Continue()
     {
       _continue.Hide(() =>
       {
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);  
         OnContinue?.Invoke();
       });
     }
