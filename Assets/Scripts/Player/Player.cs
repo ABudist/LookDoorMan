@@ -39,6 +39,11 @@ namespace Player
       
       OnResurrected?.Invoke();
     }
+
+    public void Heal()
+    {
+      _health.Restore();
+    }
     
     private void OnDestroy()
     {

@@ -1774,6 +1774,7 @@ MonoBehaviour:
   - {fileID: -7945406542341099370, guid: 69d0eb4d979fa4688a9c135888899310, type: 3}
   - {fileID: -7945406542341099370, guid: d63236db9c35440338420bfe38360cfb, type: 3}
   _coinPrefab: {fileID: 854772021701951302, guid: 3e453733f866d42bf89fc4e4b530526c, type: 3}
+  _healPrefab: {fileID: 2215374301418388844, guid: dd19bf845e92f4836a4726daff3cca9b, type: 3}
   _maxOffset: 0.2
 --- !u!4 &882536914
 Transform:

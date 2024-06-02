@@ -32,19 +32,20 @@ public class GameState : MonoBehaviour
     
     Application.targetFrameRate = 50;
 
-    int rows = Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
-    int columns = Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
+    int rows = GetRowsCount();
+    int columns = GetColumnsCount();
     
-    int enemiesCount = (rows + columns) / 2;
+    int enemiesCount = GetEnemiesCount(rows, columns);
     int hitsToPlayerDeathFromOneEnemy = 3;
     float enemyDamage = 30;
     float enemyHealth = 100;
-    float playerHealth = (enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount) * 0.3f;
+    float playerHealth = (enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount) * 0.25f;
     float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 1);
+    int healsCount = Random.Range(1, 3);
     
     LevelData data = _mapGenerator.GenerateMap(rows, columns, enemiesCount);
     
-    CreateProps(data, enemiesCount, enemiesCount);
+    CreateProps(data, enemiesCount, enemiesCount, healsCount);
     
     data.Floor.Bake();
     
@@ -63,6 +64,40 @@ public class GameState : MonoBehaviour
     _gameOver.OnContinue += ContinueGame;
   }
 
+  private int GetEnemiesCount(int rows, int columns)
+  {
+    if (UserLevelData.CurrentLevel <= 5)
+    {
+      return (rows + columns) / 3;
+    }
+    
+    return (rows + columns) / 2;
+  }
+
+  private int GetRowsCount()
+  {
+    if (UserLevelData.CurrentLevel <= 5)
+    {
+      return Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-1, 2), 3, 5);
+    }
+    else
+    {
+      return Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
+    }
+  }
+  
+  private int GetColumnsCount()
+  {
+    if (UserLevelData.CurrentLevel <= 5)
+    {
+      return Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-1, 2), 3, 5);
+    }
+    else
+    {
+      return Mathf.Max(UserLevelData.CurrentLevel + Random.Range(-3, 2), 4, 10);
+    }
+  }
+  
   private void UpdateLevel()
   {
     if(UserLevelData.NeedToNextLevel)
@@ -86,7 +121,7 @@ public class GameState : MonoBehaviour
     });
   }
 
-  private void CreateProps(LevelData levelData, int propsCount, int coinsCount)
+  private void CreateProps(LevelData levelData, int propsCount, int coinsCount, int healsCount)
   {
     List<Vector3> targetPositions = new List<Vector3>(levelData.PositionsForProps);
 
@@ -104,6 +139,15 @@ public class GameState : MonoBehaviour
       int indx = Random.Range(0, targetPositions.Count);
 
       _propsFactory.SpawnCoin(targetPositions[indx]);
+      
+      targetPositions.RemoveAt(indx);
+    }
+    
+    for (int i = 0; i < healsCount; i++)
+    {
+      int indx = Random.Range(0, targetPositions.Count);
+
+      _propsFactory.SpawnHeal(targetPositions[indx]);
       
       targetPositions.RemoveAt(indx);
     }

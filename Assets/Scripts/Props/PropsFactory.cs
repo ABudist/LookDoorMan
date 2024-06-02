@@ -8,6 +8,7 @@ namespace Props
   {
     [SerializeField] private PropsObj[] _propsObjPrefabs;
     [SerializeField] private Coin _coinPrefab;
+    [SerializeField] private Heal _healPrefab;
 
     [SerializeField] private float _maxOffset;
     
@@ -19,6 +20,11 @@ namespace Props
     public void SpawnCoin(Vector3 at)
     {
       Instantiate(_coinPrefab, CalculatePosition(at), quaternion.identity);
+    } 
+    
+    public void SpawnHeal(Vector3 at)
+    {
+      Instantiate(_healPrefab, CalculatePosition(at), quaternion.identity);
     }
 
     private Vector3 CalculatePosition(Vector3 point)

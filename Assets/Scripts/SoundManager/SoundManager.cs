@@ -17,6 +17,7 @@ namespace SoundManager
     public AudioClip Win;
     public AudioClip CharacterOpened;
     public AudioClip Twist;
+    public AudioClip Health;
     
     private AudioSource _src;
     private AudioSource _srcPitched;

@@ -55,3 +55,4 @@ MonoBehaviour:
   Win: {fileID: 8300000, guid: 996b5b008b7a94172be6a21abe5a2775, type: 3}
   CharacterOpened: {fileID: 8300000, guid: 99f9c0aec4f7345f7ad0ecf364d2ee6c, type: 3}
   Twist: {fileID: 8300000, guid: 2f18838dd0f4c4ac7bfcf77bc93262b4, type: 3}
+  Health: {fileID: 8300000, guid: 1cfebdc340913446d903922b64db88cd, type: 3}

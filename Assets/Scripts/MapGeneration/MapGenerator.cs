@@ -156,15 +156,15 @@ namespace MapGeneration
           {
             if (current.Row == 0)
             {
-              SpawnExit(current.Position + new Vector3(0, 0, CELL_SIZE / 2), Vector3.zero);
+              SpawnExit(current.Position + new Vector3(0, 0, CELL_SIZE / 2), new Vector3(0, 0, 0));
             }
             else if(current.Row == _gridRows - 1)
             {
-              SpawnExit(current.Position - new Vector3(0, 0, CELL_SIZE / 2), Vector3.zero);
+              SpawnExit(current.Position - new Vector3(0, 0, CELL_SIZE / 2), new Vector3(0, -180, 0));
             }
             else if(current.Column == 0)
             {
-              SpawnExit(current.Position - new Vector3(CELL_SIZE / 2, 0, 0), new Vector3(0, 90, 0));
+              SpawnExit(current.Position - new Vector3(CELL_SIZE / 2, 0, 0), new Vector3(0, -90, 0));
             }
             else
             {
