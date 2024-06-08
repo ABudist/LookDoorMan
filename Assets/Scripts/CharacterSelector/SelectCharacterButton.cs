@@ -18,12 +18,16 @@ namespace CharacterSelector
     [SerializeField] private GameObject _lock;
     [SerializeField] private Color _selectedColor;
     [SerializeField] private Color _highlightedColor;
+    [SerializeField] private Material _material;
 
     private Outline _outline => GetComponent<Outline>();
     private CharacterSelector _characterSelector;
     private CharacterConfigSO _currentConfig;
     private Vector3 _origScale;
     private Sequence _selectedAnim;
+    
+    private static readonly int BorderMin = Shader.PropertyToID("_BorderMin");
+    private static readonly int BorderMax = Shader.PropertyToID("_BorderMax");
 
     public void Construct(CharacterConfigSO characterConfigConfig, Rect cutZone, CharacterSelector characterSelector)
     {

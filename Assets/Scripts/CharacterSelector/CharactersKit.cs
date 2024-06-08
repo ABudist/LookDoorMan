@@ -14,9 +14,12 @@ namespace CharacterSelector
 
     private List<SelectCharacterButton> _buttons = new List<SelectCharacterButton>(9);
     
-    public void SpawnButtons(Rect cutZone)
+    public void SpawnButtons(int id, int totalKits,  Rect cutZone)
     {
-      for (int i = 0; i < _characters.CharactersConfigs.Length; i++)
+      int from = id * (_characters.CharactersConfigs.Length / totalKits);
+      int to = from + (_characters.CharactersConfigs.Length / totalKits);
+        
+      for (int i = from; i < to; i++)
       {
         SelectCharacterButton selectCharacterButton = Instantiate(_selectCharacterButtonPrefab, _parentForButtons);
         selectCharacterButton.Construct(_characters.CharactersConfigs[i], cutZone, _characterSelector);
