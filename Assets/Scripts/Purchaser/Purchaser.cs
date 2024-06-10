@@ -1,4 +1,5 @@
 ﻿using System;
+using CharacterSelector;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.SceneManagement;
@@ -50,7 +51,6 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
     UnityPurchasing.Initialize(this, builder);
   }
-
 
   private bool IsInitialized()
   {
@@ -174,18 +174,23 @@ public class Purchaser : MonoBehaviour, IStoreListener
   {
     if (String.Equals(args.purchasedProduct.definition.id, full_version, StringComparison.Ordinal))
     {
-      for (int i = 0; i < 9; i++)
+      for (int i = 0; i < Characters.Instance.CharactersConfigs.Length; i++)
       {
-        UserCharacterData.Open(i);
+        UserCharacterData.Open(Characters.Instance.CharactersConfigs[i].Id);
       }
 
       UserPurchasingData.SetNoADSPurchased();
+      
+      Analytic.GameAnalytic.Instance.InAppPurchaseEvent();
 
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     else if (String.Equals(args.purchasedProduct.definition.id, no_ads, StringComparison.Ordinal))
     {
       UserPurchasingData.SetNoADSPurchased();
+      CASAds.Instance.HideBanner();
+      
+      Analytic.GameAnalytic.Instance.InAppPurchaseEvent();
     }
 
     return PurchaseProcessingResult.Complete;
@@ -212,7 +217,17 @@ public class Purchaser : MonoBehaviour, IStoreListener
     m_AppleExtensions.ContinuePromotionalPurchases();
   }
 
-  public string Get_Price(string product)
+  public string GetNoAdsPrice()
+  {
+    return Get_Price(no_ads);
+  } 
+  
+  public string GetFullPrice()
+  {
+    return Get_Price(full_version);
+  }
+  
+  private string Get_Price(string product)
   {
     if (IsInitialized())
       return m_StoreController.products.WithID(product).metadata.localizedPriceString;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,11 +6,24 @@ namespace UI
 {
   public class Tutorial : MonoBehaviour
   {
+    [SerializeField] private GameState _gameState;
     [SerializeField] private GameObject[] _objs;
 
     private bool _active;
-    
-    private IEnumerator Start()
+
+    private void Awake()
+    {
+      _gameState.OnGameStarted += Show;
+    }
+
+    private void Show()
+    {
+      _gameState.OnGameStarted -= Show;
+
+      StartCoroutine(Anim());
+    }
+
+    private IEnumerator Anim()
     {
       yield return new WaitForSeconds(1f);
 
@@ -30,6 +44,7 @@ namespace UI
       
       if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
       {
+        StopAllCoroutines();
         gameObject.SetActive(false);
       }
     }

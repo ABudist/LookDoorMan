@@ -31,8 +31,16 @@ namespace Enemies.VisionArea
 
     private void Update()
     {
-      foreach (Transform obj in _objInTrigger)
+      for(int i = 0; i < _objInTrigger.Count; i++)
       {
+        Transform obj = _objInTrigger[i];
+        
+        if (obj == null)
+        {
+          _objInTrigger.RemoveAt(i);
+          continue;
+        }
+        
         Vector3 dirToTarget = (obj.position - transform.position).normalized;
         float angle = Mathf.Acos(Vector3.Dot(dirToTarget, transform.forward)) * Mathf.Rad2Deg;
           

@@ -1,25 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Text_Localization : MonoBehaviour
 {
-    Text my_text;
+  private TextMeshProUGUI _textMeshProUGUI;
+  private Text _text;
 
-    public string rus, eng;
+  public string rus, eng;
 
-    void Awake()
+  void Awake()
+  {
+    _text = GetComponent<Text>();
+
+    if (_text == null)
     {
-        my_text = GetComponent<Text>();
-
-        if (Application.systemLanguage == SystemLanguage.Russian)
-        {
-            my_text.text = rus;
-        }
-        else
-        {
-            my_text.text = eng;
-        }
+      _textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+      _textMeshProUGUI.text = GetValue();
     }
+    else
+    {
+      _text.text = GetValue();
+    }
+  }
+
+  private string GetValue()
+  {
+    if (Application.systemLanguage == SystemLanguage.Russian)
+    {
+      return rus;
+    }
+    else
+    {
+      return eng;
+    }
+  }
 }

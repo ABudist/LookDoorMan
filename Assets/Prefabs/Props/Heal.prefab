@@ -236,7 +236,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.74367, y: 0.74367, z: 0.74367}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1972880182333694059}
@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: {fileID: 152564, guid: 0e4a7fa9fd28f154b91c98ee6fe8ebea, type: 3}
+  _cross: {fileID: 1263066316590453926}
 --- !u!1001 &8269587099497496986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -357,13 +358,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealStream
       objectReference: {fileID: 0}
+    - target: {fileID: 107290, guid: 88fdae94c8d9f23439038e9e33b18681, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 491382, guid: 88fdae94c8d9f23439038e9e33b18681, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 491382, guid: 88fdae94c8d9f23439038e9e33b18681, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.735
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 491382, guid: 88fdae94c8d9f23439038e9e33b18681, type: 3}
       propertyPath: m_LocalPosition.z

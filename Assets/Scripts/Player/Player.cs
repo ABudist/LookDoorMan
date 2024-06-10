@@ -14,7 +14,7 @@ namespace Player
     private PlayerAttack _playerAttack;
     private PlayerSpawnEffect _playerSpawnEffect => GetComponent<PlayerSpawnEffect>();
 
-    public void Construct(Health.Health health, PlayerMover playerMover, PlayerAttack playerAttack)
+    public void Construct(GameState gameState, Health.Health health, PlayerMover playerMover, PlayerAttack playerAttack)
     {
       Vibration.Init();
       
@@ -23,9 +23,12 @@ namespace Player
       _health = health;
       _health.OnEnd += Dead;
       _health.OnChanged += Vibrate;
-      
-      _playerSpawnEffect.Show();
-      Active = true;
+
+      gameState.OnGameStarted += () =>
+      {
+        _playerSpawnEffect.Show();
+        Active = true;
+      };
     }
 
     public void Resurrect()
@@ -36,6 +39,8 @@ namespace Player
       _health.Restore();
       
       Active = true;
+      
+      _playerSpawnEffect.Show();
       
       OnResurrected?.Invoke();
     }

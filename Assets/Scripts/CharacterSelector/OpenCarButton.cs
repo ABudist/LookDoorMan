@@ -1,7 +1,7 @@
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
+using User;
 
 namespace CarSelector
 {
@@ -25,7 +25,7 @@ namespace CarSelector
 
     private void Start()
     {
-     // _priceText.text = Data.CAR_PRICE.ToString();
+      _priceText.text = UserCharacterData.Cost.ToString();
     }
 
     private void TryOpenNextCar()

@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enemies;
@@ -8,11 +8,15 @@ using Props;
 using UI;
 using UI.GameOverScreen;
 using UnityEngine;
+using UnityEngine.iOS;
 using UnityEngine.SceneManagement;
 using User;
+using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
+  public event Action OnGameStarted;
+  
   [SerializeField] private MapGenerator _mapGenerator;
   [SerializeField] private PlayerFactory _playerFactory;
   [SerializeField] private CameraFollower.CameraFollower _cameraFollower;
@@ -25,6 +29,7 @@ public class GameState : MonoBehaviour
   [SerializeField] private GameOver _gameOver;
   
   private Player.Player _player;
+  private bool _finished;
 
   public void Start()
   {
@@ -39,7 +44,8 @@ public class GameState : MonoBehaviour
     int hitsToPlayerDeathFromOneEnemy = 3;
     float enemyDamage = 30;
     float enemyHealth = 100;
-    float playerHealth = (enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount) * 0.25f;
+    //float playerHealth = (enemyDamage * hitsToPlayerDeathFromOneEnemy * enemiesCount) * 0.3f;
+    float playerHealth = enemyDamage * 6;
     float playerDamage = enemyHealth / (hitsToPlayerDeathFromOneEnemy - 1);
     int healsCount = Random.Range(1, 3);
     
@@ -51,7 +57,7 @@ public class GameState : MonoBehaviour
     
     _background.Create(data.Floor.transform);
     
-    _player = _playerFactory.CreatePlayer(data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
+    _player = _playerFactory.CreatePlayer(this, data.PlayerSpawnPosition, _joystick, _attackButton, playerHealth, playerDamage);
     _player.OnDead += PlayerDead;
     
     _cameraFollower.SetTarget(_player.transform);
@@ -60,8 +66,42 @@ public class GameState : MonoBehaviour
     _enemyFactory.SpawnEnemies(data, enemiesCount, _player, enemyDamage, enemyHealth);
 
     data.Exit.OnPlayerExit += Win;
+    
+    _player.gameObject.SetActive(false);
+    _attackButton.gameObject.SetActive(false);
 
-    _gameOver.OnContinue += ContinueGame;
+    if (UserLevelData.NeedStartWindow)
+    {
+      _gameOver.OnPlayClicked += Play;
+      _gameOver.gameObject.SetActive(true);
+      _gameOver.ShowStart();
+    }
+    else
+    {
+      Play();
+    }
+  }
+
+  private void Play()
+  {
+    if (UserLevelData.PlayPressedCount % 3 == 0)
+    {
+      CASAds.Instance.ShowInterstitial();
+    }
+    
+    UserLevelData.PlayPressed();
+    
+    if (_finished)
+    {
+      Restart();
+    }
+    else
+    {
+      _player.gameObject.SetActive(true);
+      _attackButton.gameObject.SetActive(true);
+    
+      OnGameStarted?.Invoke();
+    }
   }
 
   private int GetEnemiesCount(int rows, int columns)
@@ -109,6 +149,7 @@ public class GameState : MonoBehaviour
     SoundManager.SoundManager.Instance.PlayOneShot(SoundManager.SoundManager.Instance.Win);
 
     UserLevelData.NeedToNextLevel = true;
+    UserLevelData.NeedStartWindow = true;
 
     Restart();
   }
@@ -155,14 +196,18 @@ public class GameState : MonoBehaviour
 
   private void PlayerDead()
   {
+    _finished = true;
+
+    UserLevelData.AddDeathCount();
     UserLevelData.NeedToNextLevel = false;
+    UserLevelData.NeedStartWindow = false;
     
     _gameOver.gameObject.SetActive(true);
-    _gameOver.Show();
-  }
-
-  private void ContinueGame()
-  {
-    _player.Resurrect();
+    _gameOver.ShowEnd();
+      
+    if (UserLevelData.DeathCount == 1 || UserLevelData.DeathCount == 8 || UserLevelData.DeathCount == 50)
+    {
+      Device.RequestStoreReview();
+    }
   }
 }

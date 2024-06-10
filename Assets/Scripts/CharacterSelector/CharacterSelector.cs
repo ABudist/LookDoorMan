@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CarSelector;
 using UI;
+using UI.BuyScreen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -17,12 +18,10 @@ namespace CharacterSelector
     [SerializeField] private CharacterSelectPanel characterSelectPanel;
     [SerializeField] private OpenCarAnimation _openCarAnimation;
     [SerializeField] private CharactersKit[] _kits;
-    [SerializeField] private BuyPanel _buyPanelPrefab;
+    [SerializeField] private Buy _buyPanel;
     [SerializeField] private Transform _parentForBuyPanel;
     [SerializeField] private ParticleSystem _particleSystem;
-
-    private const int PRICE = 0;
-    
+      
     private SelectCharacterButton _currentSelected;
     private bool _active = true;
     private bool _start = true;
@@ -46,17 +45,8 @@ namespace CharacterSelector
       }
       else
       {
-        return;
-        Transform panel = Instantiate(_buyPanelPrefab, _parentForBuyPanel).transform;
-        panel.GetChild(1).transform.localScale = Vector3.one;
-        panel.transform.localPosition = new Vector3(0, 0, -1500);
-
-        var canvas = panel.gameObject.AddComponent<Canvas>();
-        canvas.overrideSorting = true;
-        canvas.sortingOrder = 1;
-        
-        panel.gameObject.AddComponent<GraphicRaycaster>();
-
+        _buyPanel.gameObject.SetActive(true);
+        _buyPanel.Open();
       }
     }
 
@@ -65,7 +55,7 @@ namespace CharacterSelector
       if (!_active)
         return;
 
-      if (UserWallet.CurrentValue >= PRICE)
+      if (UserWallet.CurrentValue >= UserCharacterData.Cost)
       {
         CharactersKit kitWithClosedCharacters = GetKitWithClosedCars();
 
@@ -85,7 +75,7 @@ namespace CharacterSelector
 
         _openCarAnimation.StartAnimation(closedCarsButtons, btnToOpenCharacter, () =>
         {
-          UserWallet.Subtract(PRICE);
+          UserWallet.Subtract(UserCharacterData.Cost);
           
           UserCharacterData.Open(btnToOpenCharacter.CurrentConfig.Id);
           SelectCharacter(btnToOpenCharacter, false);

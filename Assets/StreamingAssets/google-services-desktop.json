@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "357557939125",
+    "project_id": "ninja-stels",
+    "storage_bucket": "ninja-stels.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357557939125:ios:a3696ee5448ce31f4607fc",
+        "android_client_info": {
+          "package_name": "ninja.stels.ansrey"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv2J2Blse5ZKfiBVu5c67sIpnxMR5PnqU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

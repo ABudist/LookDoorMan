@@ -7,6 +7,8 @@ namespace User
   public static class UserCharacterData
   {
     public static event Action OnChanged;
+
+    public static int Cost = 100;
     
     private const string CHARACTER_ID_KEY = "Character Id";
     private const string CHARACTER_OPENED_KEY = "Character_opened_";

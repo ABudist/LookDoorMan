@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.iOS;
 
 namespace UI.SettingsScreen
 {
@@ -45,18 +46,24 @@ namespace UI.SettingsScreen
     {
       if (!_active)
         return;
+      
+      Application.OpenURL("https://apps.apple.com/us/developer/andrey-minkov/id1645318800");
     }
 
     public void RateUs()
     {
       if (!_active)
         return;
+
+      Device.RequestStoreReview();
     }
 
     public void Restore()
     {
       if (!_active)
         return;
+      
+      Purchaser.Instance.RestorePurchases();
     }
   }
 }

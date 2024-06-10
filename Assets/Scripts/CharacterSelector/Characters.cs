@@ -36,7 +36,7 @@ namespace CharacterSelector
         }
       }
 
-      return null;
+      return _characters[0].Prefab;
     }
   }
 }

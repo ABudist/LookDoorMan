@@ -12,6 +12,11 @@ namespace User
 
     static UserWallet()
     {
+      if (!PlayerPrefs.HasKey(WALLET_VALUE_KEY))
+      {
+        PlayerPrefs.SetInt(WALLET_VALUE_KEY, 50);
+      }
+      
       CurrentValue = PlayerPrefs.GetInt(WALLET_VALUE_KEY);
       
       OnChanged += (int value) =>

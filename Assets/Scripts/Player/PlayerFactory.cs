@@ -6,7 +6,7 @@ namespace Player
 {
   public class PlayerFactory : MonoBehaviour
   {
-    public Player CreatePlayer(Vector3 at, Joystick joystick, Button attackButton, float health, float damage)
+    public Player CreatePlayer(GameState gameState, Vector3 at, Joystick joystick, Button attackButton, float health, float damage)
     {
       Player spawned = Instantiate(Characters.Instance.GetSelectedPrefab());
       spawned.transform.position = at;
@@ -18,7 +18,7 @@ namespace Player
       playerMover.Construct(joystick);
       playerAttack.Construct(attackButton, damage);
       playerHealth.Construct(health);
-      spawned.Construct(playerHealth, playerMover, playerAttack);
+      spawned.Construct(gameState, playerHealth, playerMover, playerAttack);
 
       return spawned;
     }
