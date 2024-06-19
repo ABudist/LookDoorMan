@@ -37,7 +37,7 @@ public class CASAds : MonoBehaviour
 
     if (_manager != null)
     {
-      _banner = _manager.GetAdView(AdSize.AdaptiveBanner);
+      _banner = _manager.GetAdView(AdSize.ThinBanner);
 
       _banner.position = position;
       _banner.SetActive(true);
