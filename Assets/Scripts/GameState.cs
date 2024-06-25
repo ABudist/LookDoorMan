@@ -74,7 +74,7 @@ public class GameState : MonoBehaviour
     {
       _gameOver.OnPlayClicked += Play;
       _gameOver.gameObject.SetActive(true);
-      _gameOver.ShowStart();
+      _gameOver.ShowStart(UserLevelData.NeedToNextLevel);
     }
     else
     {
@@ -84,7 +84,7 @@ public class GameState : MonoBehaviour
 
   private void Play()
   {
-    if (UserLevelData.PlayPressedCount % 3 == 0)
+    if ((UserLevelData.PlayPressedCount + 1) % 3 == 0)
     {
       CASAds.Instance.ShowInterstitial();
     }

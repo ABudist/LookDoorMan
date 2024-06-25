@@ -17,10 +17,11 @@ namespace UI.GameOverScreen
     [SerializeField] private Buy _buy;
     [SerializeField] private Transform _playButton;
     [SerializeField] private Transform _looseText;
+    [SerializeField] private GameObject _levelComplete;
 
     private Sequence _sequence;
 
-    public void ShowStart()
+    public void ShowStart(bool showLevelCompete)
     {
       if (_sequence != null)
       {
@@ -36,6 +37,7 @@ namespace UI.GameOverScreen
       {
         _buttons.gameObject.SetActive(true);
         _buttons.Show();
+        _levelComplete.SetActive(showLevelCompete);
         ShowPlayText();
       });
     }
