@@ -70,9 +70,10 @@ public class GameState : MonoBehaviour
     _player.gameObject.SetActive(false);
     _attackButton.gameObject.SetActive(false);
 
+    _gameOver.OnPlayClicked += Play;
+    
     if (UserLevelData.NeedStartWindow)
     {
-      _gameOver.OnPlayClicked += Play;
       _gameOver.gameObject.SetActive(true);
       _gameOver.ShowStart(UserLevelData.NeedToNextLevel);
     }

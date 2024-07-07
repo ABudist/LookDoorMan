@@ -17,44 +17,45 @@ namespace Enemies
 
     public void WalkTo(Vector3 target)
     {
-      if(!_active)
+      if (!_active)
         return;
-        
+
       _agent.speed = WalkSpeed;
       Target = target;
       _agent.destination = target;
       LookTo((target - transform.position).normalized);
     }
-    
+
     public void RunTo(Vector3 target)
     {
-      if(!_active)
+      if (!_active)
         return;
-        
+
       _agent.speed = RunSpeed;
-        
+
       Target = target;
       _agent.destination = target;
     }
 
     public void LookTo(Vector3 dir)
     {
-      if(!_active)
+      if (!_active)
         return;
-      
+
       _agent.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
       _agent.transform.rotation = Quaternion.Euler(0, _agent.transform.rotation.eulerAngles.y, 0);
     }
-    
+
     public void Stop()
     {
-      _agent.ResetPath();
+      if (_agent.isActiveAndEnabled)
+        _agent.ResetPath();
     }
 
     public void SetActive(bool active)
     {
       Stop();
-     // _agent.enabled = active;
+      // _agent.enabled = active;
       _active = active;
     }
   }

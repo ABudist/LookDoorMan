@@ -38,8 +38,12 @@ namespace Enemies.StateMachine
     {
       _enemyVisionArea.Show();
       _enemyVisionArea.OnPlayerEnter += PlayerEnter;
-      _coroutine = _enemyStateMachine.StartCoroutine(PatrolCoroutine());
-      _coroutine2 = _enemyStateMachine.StartCoroutine(CheckPlayerDistance());
+      
+      if (_enemyStateMachine.gameObject.activeSelf)
+      {
+        _coroutine = _enemyStateMachine.StartCoroutine(PatrolCoroutine());
+        _coroutine2 = _enemyStateMachine.StartCoroutine(CheckPlayerDistance());
+      }
     }
 
     public void Exit()

@@ -53,6 +53,7 @@ namespace UI.GameOverScreen
       _playButton.gameObject.SetActive(false);
       _looseText.gameObject.SetActive(false);
       _buttons.gameObject.SetActive(false);
+      _levelComplete.SetActive(false);
 
       _background.ToBlack(() =>
       {
