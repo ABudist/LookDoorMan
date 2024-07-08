@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.benoitfreslon.vibration": "https://github.com/BenoitFreslon/Vibration.git",
-    "com.cleversolutions.ads.unity": "https://github.com/cleveradssolutions/CAS-Unity.git#3.7.3",
+    "com.cleversolutions.ads.unity": "https://github.com/cleveradssolutions/CAS-Unity.git#3.8.1",
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.collab-proxy": "2.3.1",
     "com.unity.feature.2d": "2.0.0",

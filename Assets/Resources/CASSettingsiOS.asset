@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testAdMode: 0
   managerIds:
-  - ninja.stels.ansrey
+  - 6502335997
   allowedAdFlags: 7
   audienceTagged: 2
   bannerSize: 0
